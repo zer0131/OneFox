@@ -5,12 +5,11 @@
  * @desc 文件缓存类
  */
 
-namespace OneFox\Cache;
+namespace OneFox\Caches;
+use OneFox\Cache;
 use OneFox\Config;
 
-class CFile {
-
-	protected $options = array();
+class CFile extends Cache{
 
 	public function __construct(){
         $config = Config::get('cache.file');

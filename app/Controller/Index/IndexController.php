@@ -10,7 +10,7 @@ use Controller\BaseController;
 use OneFox\Config;
 use Model\Index\TestModel;
 use OneFox\C;
-use OneFox\Cache\CFile;
+use OneFox\Cache;
 
 class IndexController extends BaseController {
     
@@ -23,7 +23,6 @@ class IndexController extends BaseController {
 		//$test_model = new TestModel();
 		//var_dump($test_model->test());exit;
 		//C::log('test');
-		$file_cache = new CFile();
-		$file_cache->set('testasd', 'ryan');
+		Cache::getInstance()->set('asd', 'ryan');
     }
 }
