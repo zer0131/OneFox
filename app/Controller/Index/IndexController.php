@@ -10,6 +10,7 @@ use Controller\BaseController;
 use OneFox\Config;
 use Model\Index\TestModel;
 use OneFox\C;
+use OneFox\Cache\CFile;
 
 class IndexController extends BaseController {
     
@@ -19,8 +20,10 @@ class IndexController extends BaseController {
     public function indexAction(){
 		//$this->assign(array('name'=>'ryan', 'age'=>27));
 		//$this->show();
-		$test_model = new TestModel();
-		var_dump($test_model->test());exit;
+		//$test_model = new TestModel();
+		//var_dump($test_model->test());exit;
 		//C::log('test');
+		$file_cache = new CFile();
+		$file_cache->set('testasd', 'ryan');
     }
 }
