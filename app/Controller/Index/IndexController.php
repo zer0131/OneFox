@@ -23,6 +23,7 @@ class IndexController extends BaseController {
 		//$test_model = new TestModel();
 		//var_dump($test_model->test());exit;
 		//C::log('test');
-		Cache::getInstance()->set('asd', 'ryan');
+		//Cache::getInstance()->set('asd', 'ryan');
+		echo 'ok';
     }
 }
