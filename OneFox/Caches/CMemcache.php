@@ -17,7 +17,7 @@ class CMemcache extends Cache {
 		if (!extension_loaded('memcache')) {
 			throw new \RuntimeException('memcache扩展未加载');
 		}
-		$this->options = Config::get('cache.memcahe');
+		$this->options = Config::get('cache.memcache');
 		if (!$this->options) {
 			$this->options = array(
 				'expire' => 0,

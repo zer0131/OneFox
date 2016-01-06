@@ -12,7 +12,7 @@ $common = array(
 		'expire' => 0,
 		'prefix' => 'onefox_'
 	),
-	'memcahce' => array(
+	'memcache' => array(
 		'expire' => 0,
 		'prefix' => 'onefox_',
 		'servers' => array(
