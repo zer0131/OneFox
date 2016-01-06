@@ -6,9 +6,20 @@
  */
 
 $common = array(
+	'type' => 'file',
 	'file' => array(
-		//code
+		'path' => APP_PATH.DS.'Cache',
+		'expire' => 0,
+		'prefix' => 'onefox_'
 	),
+	'memcahce' => array(
+		'expire' => 0,
+		'prefix' => 'onefox_',
+		'servers' => array(
+			array('host'=>'127.0.0.1', 'port'=>11217, 'persistent'=>false, 'weight'=>10),
+		)
+	),
+	'redis' => array()
 );
 
 $online = array();

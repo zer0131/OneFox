@@ -12,12 +12,8 @@ use OneFox\Config;
 class CFile extends Cache{
 
 	public function __construct(){
-        $config = Config::get('cache.file');
-		if ($config) {
-			$this->options['path'] = $config['path'];
-			$this->options['expire'] = $config['expire'];
-			$this->options['prefix'] = $config['prefix'];
-		} else {
+        $this->options = Config::get('cache.file');
+		if (!$this->options) {
 			$this->options =  array(
 				'path' => APP_PATH.DS.'Cache',//缓存路径
 				'expire' => 0,//有效期，单位秒，0表示长久有效
