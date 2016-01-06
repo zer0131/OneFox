@@ -75,4 +75,11 @@ class CMemcache extends Cache {
 		$res = call_user_func_array(array($this->_memcache, $funcName), $arguments);	
 		return $res;
 	}
+
+	public function __destruct() {
+		$this->_memcache->close();
+		if ($this->_memcache) {
+			$this->_memcache = null;
+		}
+	}
 }
