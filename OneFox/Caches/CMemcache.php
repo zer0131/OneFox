@@ -23,7 +23,7 @@ class CMemcache extends Cache {
 				'expire' => 0,
 				'prefix' => 'onefox_',
 				'servers' => array(
-					array('host'=>'127.0.0.1', 'port'=>11217, 'persistent'=>false, 'weight'=>100),
+					array('host'=>'127.0.0.1', 'port'=>11211, 'persistent'=>false, 'weight'=>100),
 				)
 			);
 		}
@@ -54,11 +54,11 @@ class CMemcache extends Cache {
 		return $this->_memcache->set($this->options['prefix'].$name, $value, 0, $expire);
 	}
 
-	public function rm($name) {
+	public function rm($name, $ttl=0) {
 		if (!$this->_memcache) {
 			$this->_connect();
 		}
-		return $this->_memcache->delete($this->options['prefix'].$name);
+		return $this->_memcache->delete($this->options['prefix'].$name, $ttl);
 	}
 
 	public function clear() {

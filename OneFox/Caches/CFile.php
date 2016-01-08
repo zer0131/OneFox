@@ -80,14 +80,14 @@ class CFile extends Cache{
         $data = sprintf('%012d',$expire).$data;
         $result = file_put_contents($filename,$data);
         if ($result) {
-            clearstatcache();
+            clearstatcache();//清除文件缓存状态
             return true;
         } else {
             return false;
         }
     }
 
-    public function rm($name){
+    public function rm($name, $ttl=0){
         if (is_file($this->_filename($name))) {
             return unlink($this->_filename($name));
         }
