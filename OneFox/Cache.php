@@ -20,8 +20,8 @@ abstract class Cache {
         return self::$instance;
     }
 
-    abstract public function get($name);#获取缓存
-    abstract public function set($name,$value,$expire=null);#设置缓存
-    abstract public function rm($name, $ttl=0);#删除缓存
-    abstract public function clear();#清除缓存
+    abstract public function get($name);//获取缓存
+    abstract public function set($name,$value,$expire=null);//设置缓存
+    abstract public function rm($name, $ttl=0);//删除缓存
+    abstract public function clear();//清除缓存
 }
