@@ -6,7 +6,7 @@
  */
 
 $common = array(
-	'type' => 'file',
+	'type' => 'memcached',//file, memcache, memcached, redis四种缓存方式
 	'file' => array(
 		'path' => APP_PATH.DS.'Cache',
 		'expire' => 0,
