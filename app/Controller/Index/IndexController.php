@@ -18,8 +18,8 @@ class IndexController extends BaseController {
      * 默认方法
      */
     public function indexAction(){
-		//$this->assign(array('name'=>'ryan', 'age'=>27));
-		//$this->show();
+		$this->assign(array('name'=>'ryan', 'age'=>27));
+		$this->show();
 		//$test_model = new TestModel();
 		//var_dump($test_model->test());exit;
 		//C::log('test');

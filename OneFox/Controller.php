@@ -27,8 +27,8 @@ abstract class Controller {
         $this->view->render($tpl);
 	}
 
-	protected function import($path) {
-		$this->view->import();
+	protected function import($path, $val=array()) {
+		$this->view->import($path, $val);
 	}
 
 	protected function fetch($tpl='') {
