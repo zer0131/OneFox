@@ -6,7 +6,7 @@
  */
 
 $common = array(
-	'type' => 'memcached',//file, memcache, memcached, redis四种缓存方式
+	'type' => 'redis',//file, memcache, memcached, redis四种缓存方式
 	'file' => array(
 		'path' => APP_PATH.DS.'Cache',
 		'expire' => 0,
@@ -19,7 +19,14 @@ $common = array(
 			array('host'=>'127.0.0.1', 'port'=>11211, 'persistent'=>false, 'weight'=>10),
 		)
 	),
-	'redis' => array()
+    'redis' => array(
+        'expire' => 0,
+        'prefix' => 'onefox_',
+        'server' => array(
+            'host' => '127.0.0.1',
+            'port' => 6379
+        )
+    )
 );
 
 $online = array();
