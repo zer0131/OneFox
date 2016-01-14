@@ -13,7 +13,7 @@ OneFox是一个简洁的PHP框架，使用非常方便，简单阅读使用手�
 ```
 $ git clone https://github.com/zer0131/OneFox.git /home/project
 ```
-当然，你也可以自定义其他克隆目录
+> 当然，你也可以自定义其他克隆目录
 
 ### nginx配置示例
 ```
@@ -53,7 +53,7 @@ server {
 </VirtualHost>
 ```
 
-下面是.htaccess配置
+.htaccess配置
 ```
 <IfModule mod_rewrite.c>
     Options +FollowSymlinks
@@ -64,6 +64,11 @@ server {
 </IfModule>
 ```
 
-> 上面注释的部分可根据实际情况修改
+>  注意：注释的部分可根据实际情况修改
 
 ## 目录结构
+
+project  WEB部署目录（或者子目录）
+├─README.md       README文件
+├─app             应用目录
+└─OneFox          框架目录
