@@ -69,7 +69,42 @@ server {
 ## 目录结构
 ```
 project  WEB部署目录（或者子目录） 
+├─LICENSE         LICENSE文件
 ├─README.md       README文件 
 ├─app             应用目录 
 └─OneFox          框架目录 
+```
+
+应用目录结构
+```
+├─app 
+│  ├─Cache        缓存目录
+│  ├─Config       配置目录 
+│  ├─Controller   Controller目录
+│  ├─Lib          自定义类库目录
+│  ├─Model        Model目录
+│  ├─Tpl          模板目录
+│  ├─Log          日志目录
+│  └─Public       入口目录，可存放资源文件等
+```
+
+框架目录结构
+```
+├─OneFox 
+│  ├─Caches             缓存类目录
+│  ├─Tpl                系统模板目录 
+│  ├─C.php              公共函数文件
+│  ├─Cache.php          缓存抽象文件
+│  ├─Config.php         配置类文件
+│  ├─Controller.php     基础Controller类文件
+│  ├─Crypt.php          加解密类文件
+│  ├─Curl.php           Curl类文件
+│  ├─DB.php             数据库范文类文件
+│  ├─Dispatcher.php     路由解析类文件
+│  ├─Log.php            日志类文件
+│  ├─Model.php          基础Model类文件
+│  ├─Request.php        请求类文件
+│  ├─Response.php       响应类文件
+│  ├─View.php           视图解析类文件
+│  └─OneFox.php         框架入口文件
 ```
