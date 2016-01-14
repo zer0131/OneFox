@@ -68,7 +68,7 @@ server {
 
 ## 目录结构
 
-project  WEB部署目录（或者子目录）
-├─README.md       README文件
-├─app             应用目录
-└─OneFox          框架目录
+project  WEB部署目录（或者子目录） 
+├─README.md       README文件 
+├─app             应用目录 
+└─OneFox          框架目录 
