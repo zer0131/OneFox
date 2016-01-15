@@ -22,7 +22,7 @@ class IndexController extends BaseController {
 		$this->show();
 		//$test_model = new TestModel();
 		//var_dump($test_model->test());exit;
-		//C::log('test');
+        //echo C::log(array('url'=>$_SERVER['REQUEST_URI'], 'params'=>array('name'=>'zer')));
 		//$res = Cache::getInstance()->set('name', 'ryan');
         //var_dump(Cache::getInstance()->get('name'));
         //var_dump(Cache::getInstance()->rm('name'));

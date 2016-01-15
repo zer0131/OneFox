@@ -30,15 +30,15 @@ class C {
     
     /**
      * 输出日志
-     * @param string $msg
+     * @param string|array $msg
      * @param string $level
-     * @param array $context
+     * @param string $config
      */
-    public static function log($msg, $level='debug', array $context = array()){
-        Log::instance()->save($msg, $level, $context);
+    public static function log($msg, $level='info', $config='default'){
+        return Log::instance($config)->save($msg, $level);
     }
 
-        /**
+    /**
      * 安全数组合并
      * @param type $ar1
      * @param type $ar2
@@ -53,6 +53,21 @@ class C {
             return $ar2;
         }
         return null;
+    }
+
+    /**
+     * 迭代创建目录
+     */ 
+    public static function mkDirs($path, $mode=0777) {
+        if (!is_dir($path)) {
+            if (!self::mkDirs(dirname($path), $mode)) {
+                return false;
+            }
+            if (!mkdir($path, $mode)) {
+                return false;
+            }
+        }
+        return true;
     }
     
     /**
