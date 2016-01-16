@@ -24,6 +24,7 @@ class Response {
      */
     public static function json($data){
         header('Content-Type:application/json; charset=utf-8');
+        header('X-Powered-By: OneFox');
         exit(json_encode($data));
     }
     
@@ -40,6 +41,7 @@ class Response {
      */
     public static function xml($data){
         header('Content-Type:text/xml; charset=utf-8');
+        header('X-Powered-By: OneFox');
         exit(xml_encode($data));
     }
     
@@ -73,7 +75,7 @@ class Response {
         $cookieKey = self::$_cookieConfig['prefix'].$name;
         if ('' === $value) {
             //获取指定的Cookie
-            if (isset(Request::cookie($cookieKey))) {
+            if (Request::cookie($cookieKey)) {
                 return Request::cookie($cookieKey);
             }
             return null;

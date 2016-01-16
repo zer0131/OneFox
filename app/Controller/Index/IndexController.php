@@ -7,10 +7,6 @@
 namespace Controller\Index;
 
 use Controller\BaseController;
-use OneFox\Config;
-use Model\Index\TestModel;
-use OneFox\C;
-use OneFox\Cache;
 
 class IndexController extends BaseController {
     
@@ -18,14 +14,6 @@ class IndexController extends BaseController {
      * 默认方法
      */
     public function indexAction(){
-		$this->assign(array('name'=>'ryan', 'age'=>27));
 		$this->show();
-		//$test_model = new TestModel();
-		//var_dump($test_model->test());exit;
-        //echo C::log(array('url'=>$_SERVER['REQUEST_URI'], 'params'=>array('name'=>'zer')));
-		//$res = Cache::getInstance()->set('name', 'ryan');
-        //var_dump(Cache::getInstance()->get('name'));
-        //var_dump(Cache::getInstance()->rm('name'));
-		//echo Cache::getInstance()->get('name');
     }
 }

@@ -174,6 +174,14 @@ final class Onefox {
             }
             include_once ONEFOX_PATH.DS.'Tpl'.DS.'excetion.html';
         } else {
+            $log_info['url'] = $_SERVER['REQUEST_URI'];
+            $log_info['msg'] = $e['message'];
+            $log_info['file'] = $e['file'];
+            $log_info['line'] = $e['line'];
+            C::log($log_info, 'error');//记录错误日志
+            if (IS_CLI) {
+                exit();
+            }
             $url = Config::get('404_page');
             if ($url) {
                 Response::redirect($url);

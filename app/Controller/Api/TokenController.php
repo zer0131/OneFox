@@ -3,25 +3,13 @@
 namespace Controller\Api;
 
 use Controller\BaseController;
-use Model\Index\TestModel;
+use OneFox\Response;
 
 class TokenController extends BaseController {
     
     public function indexAction(){
-        $obj = new TestModel();
-        $obj->test();
+        Response::json(array('msg'=>'ok','code'=>0,'data'=>null));
     }
     
-    public function checkBefore(){
-        echo 'check before<br/>';
-    }
-
-    public function checkAction(){
-        echo "ok<br>";
-    }
-    
-    public function checkAfter(){
-        echo 'check after<br/>';
-    }
 }
 
