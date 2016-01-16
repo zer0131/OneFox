@@ -38,7 +38,7 @@
        <h3 class="masthead-brand">OneFox</h3> 
        <nav> 
         <ul class="nav masthead-nav"> 
-         <li class="active"><a href="javascript:void(0);">首页</a></li> 
+         <li class="active"><a href="http://www.zhangenrui.cn">首页</a></li> 
         </ul> 
        </nav> 
       </div> 
