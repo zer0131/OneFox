@@ -159,6 +159,12 @@ final class Onefox {
             self::$_error = array();
             self::_halt($e);
         }
+        if (DEBUG) {
+            $log_info['url'] = $_SERVER['REQUEST_URI'];
+            $log_info['runtime'] = number_format((microtime(true) - self::$_startTime) * 1000, 0).'ms';
+            $log_info['runmem'] = number_format( (memory_get_usage(true) - self::$_memoryStart) / (1024), 0, ",", "." ).'kb';
+            C::log($log_info);
+        }
     }
     
     private static function _halt($e){
