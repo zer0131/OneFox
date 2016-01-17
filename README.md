@@ -19,7 +19,7 @@ $ git clone https://github.com/zer0131/OneFox.git /home/project
 ```
 server {
     listen  80;
-    server_name  www.appryan.com;
+    server_name  www.appryan.com appryan.com;
     index index.php index.html index.html;
     root /home/project/app/Public;
     location / {
@@ -39,6 +39,12 @@ server {
         #expires 1h;
     }
     access_log  /usr/local/nginx/logs/OneFox.log;
+}
+```
+若要添加301重定向，则添加下面配置
+```
+if ($host != 'www.appryan.com') {
+    rewrite ^/(.*)$ http://www.appryan.com/$1 permanent;
 }
 ```
 
