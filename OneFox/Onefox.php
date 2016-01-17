@@ -12,7 +12,7 @@ final class Onefox {
     private static $_ext = '.php';
     private static $_startTime = 0;
     private static $_memoryStart = 0;
-    private static $_error = array();
+    private static $_error;
 
     public static function start(){
         if (!defined('APP_PATH')) {
@@ -125,10 +125,7 @@ final class Onefox {
             $method = $obj->getMethod(CURRENT_ACTION.'Action');
             if ($method->isPublic() && !$method->isStatic()) {
                 $method->invoke($class);
-            } else {
-                throw new \RuntimeException('请求方法不存在');
             }
-            
             
             //后置操作
             if ($obj->hasMethod(CURRENT_ACTION.'After')) {
@@ -137,7 +134,7 @@ final class Onefox {
                     $afterMethod->invoke($class);
                 }
             }
-        } catch (\ReflectionException $e) {
+        } catch (\Exception $e) {
             self::_halt($e);
         }
     }
@@ -147,16 +144,13 @@ final class Onefox {
     }
     
     public static function exceptionHandler($e){
-        self::$_error['message'] = $e->getMessage();
-        self::$_error['file'] = $e->getFile();
-        self::$_error['line'] = $e->getLine();
-        self::$_error['trace'] = $e->getTraceAsString();
+        self::$_error = $e;
     }
     
     public static function end(){
         if (self::$_error) {
             $e = self::$_error;
-            self::$_error = array();
+            self::$_error = null;
             self::_halt($e);
         }
         if (DEBUG) {
@@ -170,14 +164,14 @@ final class Onefox {
     private static function _halt($e){
         if (DEBUG) {
             if(IS_CLI){
-                exit(iconv('UTF-8','gbk',$e['message']).PHP_EOL.'FILE: '.$e['file'].'('.$e['line'].')'.PHP_EOL.$e['trace']);
+                exit(iconv('UTF-8','gbk',$e->getMessage()).PHP_EOL.'FILE: '.$e->getFile().'('.$e->getLine().')'.PHP_EOL.$e->getTraceAsString());
             }
             include_once ONEFOX_PATH.DS.'Tpl'.DS.'excetion.html';
         } else {
             $log_info['url'] = $_SERVER['REQUEST_URI'];
-            $log_info['msg'] = $e['message'];
-            $log_info['file'] = $e['file'];
-            $log_info['line'] = $e['line'];
+            $log_info['msg'] = $e->getMessage();
+            $log_info['file'] = $e->getFile();
+            $log_info['line'] = $e->getLine();
             C::log($log_info, 'error');//记录错误日志
             if (IS_CLI) {
                 exit();

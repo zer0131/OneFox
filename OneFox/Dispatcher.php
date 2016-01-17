@@ -78,16 +78,11 @@ class Dispatcher {
                 $actionName = $actionName !== null ? $actionName : self::$_defaultAction;
             }
 
-            //参数处理
+            //处理剩余参数
             if (count($uriArr) > 0) {
-                $data = array();
-                $total = count($uriArr);
-                for ($i = 0; $i < $total; $i += 2) {
-                    $k = $uriArr[$i];
-                    $v = $uriArr[$i + 1];
-                    $data[$k] = $v;
-                }
-                Request::setParams($data, 'get');
+                $params = array();
+                preg_replace_callback('/(\w+)\/([^\/]+)/',function($match) use(&$params){$params[$match[1]] = $match[2];},implode('/',$uriArr));// 解析剩余的URL参数
+                Request::setParams($params, 'get');
             }
         }
         
