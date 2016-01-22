@@ -17,9 +17,21 @@ final class Log {
         'filename' => '',
         'log_path' => '',
         'prefix' => '',
+        'log_level' => 'info',
     );
     //日志文件
     private $_logFile = '';
+    //日志级别
+    private $_logLevels = array(
+        'emergency' => 0,
+        'alert' => 1,
+        'critical' => 2,
+        'error' => 3,
+        'warning' => 4,
+        'notice' => 5,
+        'info' => 6,
+        'debug' => 7
+    );
 
     /**
      * 实例化类
@@ -45,12 +57,15 @@ final class Log {
 
     /**
      * 写入日志
-     * 日志级别: debug->info->notice->warning->error->critical->alert->emergency
+     * 日志级别(由低到高): debug->info->notice->warning->error->critical->alert->emergency
      * @param string|array $msg
      * @param string $level
      */ 
     public function save($msg, $level='info') {
         if (!$msg) {
+            return false;
+        }
+        if ($this->_logLevels[$this->_config['log_level']] < $this->_logLevels[$level]) {
             return false;
         }
         if (!is_array($msg)) {
