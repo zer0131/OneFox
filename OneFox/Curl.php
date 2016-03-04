@@ -52,7 +52,11 @@ class Curl {
         if ($params) {
             if ($multi && is_array($multi)) {
                 foreach ($multi as $key => $file) {
-                    $params[$key] = curl_file_create($file);//php5.5以后使用这种方式创建file
+                    if (version_compare(PHP_VERSION,'5.5.0','<')) {
+                        $params[$key] = '@'.$file;
+                    } else {
+                        $params[$key] = curl_file_create($file);//php5.5以后使用这种方式创建file
+                    }
                 }
             } else {
                 $this->_config[CURLOPT_POSTFIELDS] = http_build_query($params);
