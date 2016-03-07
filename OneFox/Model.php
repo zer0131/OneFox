@@ -8,13 +8,13 @@
 namespace OneFox;
 
 abstract class Model {
-    
-	protected $db;
-	protected $db_config = 'default';
 
-	public function __construct() {
-		$this->db = new DB($this->db_config);
-	}
+    protected $db;
+    protected $db_config = 'default';
+
+    public function __construct() {
+        $this->db = new DB($this->db_config);
+    }
 
 }
 
