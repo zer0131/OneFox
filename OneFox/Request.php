@@ -104,10 +104,10 @@ class Request {
         if (!is_array($data)) return false;
 
         if ($type == 'get') {
-//            $_GET = C::arrayMerge($_GET, $data);
+            //$_GET = C::arrayMerge($_GET, $data);
             self::$_getData = C::arrayMerge(self::$_getData, self::_filterArray($data));
         } else {
-//            $_POST = C::arrayMerge($_POST, $data);
+            //$_POST = C::arrayMerge($_POST, $data);
             self::$_postData = C::arrayMerge(self::$_postData, self::_filterArray($data));
         }
     }
