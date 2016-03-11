@@ -10,7 +10,7 @@ namespace OneFox;
 class Crypt {
 
     const CRYPT_KEY = '8Wm^Yi/h}s';
-    
+
     /**
      * 加密
      * @param  string $defaultKey 关键密钥
@@ -21,7 +21,7 @@ class Crypt {
     public static function encode($str,$expiry=0){
         return self::_cryptCode($str,"encode",$expiry);
     }
-    
+
     /**
      * 解密
      * @param  string $defaultKey 关键密钥
@@ -42,9 +42,9 @@ class Crypt {
      * @return string 加密或解密串
      */
     private static function _cryptCode($str, $operation = "decode", $expiry = 0, $defaultKey=''){
-		if (empty($defaultKey)) {
-			$defaultKey = self::CRYPT_KEY;
-		}
+        if (empty($defaultKey)) {
+            $defaultKey = self::CRYPT_KEY;
+        }
         $ckeyLength = 4;
         $key = md5($defaultKey);
         $keya = md5(substr($key, 0, 16));
@@ -54,11 +54,11 @@ class Crypt {
         $cryptkey = $keya . md5($keya . $keyc);
         $keyLength = strlen($cryptkey);
 
-		if ($operation == 'decode') {
-			$str = base64_decode(substr($str, $ckeyLength));
-		} else {
-			$str = sprintf('%010d', $expiry ? $expiry + time() : 0) . substr(md5($str . $keyb), 0, 16) . $str;
-		}
+        if ($operation == 'decode') {
+            $str = base64_decode(substr($str, $ckeyLength));
+        } else {
+            $str = sprintf('%010d', $expiry ? $expiry + time() : 0) . substr(md5($str . $keyb), 0, 16) . $str;
+        }
 
         $strLength = strlen($str);
 
