@@ -2,13 +2,16 @@
 
 namespace Controller\Api;
 
-use Controller\BaseController;
-use OneFox\Response;
+use OneFox\ApiController;
 
-class TokenController extends BaseController {
+class TokenController extends ApiController {
     
     public function indexAction(){
-        Response::json(array('msg'=>'ok','code'=>0,'data'=>null));
+        $param = $this->get('test');
+        if (!$param) {
+            $this->json(self::CODE_FAIL, 'error');
+        }
+        $this->json(self::CODE_SUCCESS, 'ok', array('test'=>$param));
     }
     
 }

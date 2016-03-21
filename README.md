@@ -23,7 +23,7 @@ server {
     index index.php index.html index.html;
     root /home/project/app/Public;
     location / {
-        try_files $uri $uri/ /index.php?/$uri;
+        try_files $uri $uri/ /index.php?$args;
     }
     location ~ .*\.(php|php5)?$ {
         fastcgi_pass  127.0.0.1:9000;
@@ -103,6 +103,7 @@ project  WEB部署目录（或者子目录）
 │  ├─Cache.php          缓存抽象文件
 │  ├─Config.php         配置类文件
 │  ├─Controller.php     基础Controller类文件
+│  ├─ApiController.php  接口抽象类文件
 │  ├─Crypt.php          加解密类文件
 │  ├─Curl.php           Curl类文件
 │  ├─DB.php             数据库范文类文件
