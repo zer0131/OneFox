@@ -25,9 +25,9 @@ class Request {
         } else {
             throw new RuntimeException('Request has initialized.');
         }
-        self::$_getData = self::_filterArray($_GET);
-        self::$_postData = self::_filterArray($_POST);
-        self::$_cookieData = self::_filterArray($_COOKIE);
+        self::$_getData = self::filterArray($_GET);
+        self::$_postData = self::filterArray($_POST);
+        self::$_cookieData = self::filterArray($_COOKIE);
         self::_resetRequestData();
     }
     
@@ -38,7 +38,8 @@ class Request {
      * @param type $type
      */
     public static function get($key, $default=null, $type='str'){
-        return self::_filter($key, self::$_getData, $default, $type);
+        self::_checkDeal();
+        return self::filter($key, self::$_getData, $default, $type);
     }
     
     /**
@@ -51,16 +52,18 @@ class Request {
     }
     
     public static function post($key, $default=null, $type='str'){
-        return self::_filter($key, self::$_postData, $default, $type);
+        self::_checkDeal();
+        return self::filter($key, self::$_postData, $default, $type);
     }
     
     public static function posts(){
-        self::_checkDeal();
+        self::checkDeal();
         return self::$_postData;
     }
     
     public static function cookie($key, $default=null, $type='str'){
-        return self::_filter($key, self::$_cookieData, $default, $type);
+        self::checkDeal();
+        return self::filter($key, self::$_cookieData, $default, $type);
     }
     
     public static function cookies(){
@@ -101,14 +104,14 @@ class Request {
      */
     public static function setParams($data, $type = 'get') {
         self::_checkDeal();
-        if (!is_array($data)) return false;
+        if (!is_array($data)) {
+            return false;
+        }
 
         if ($type == 'get') {
-            //$_GET = C::arrayMerge($_GET, $data);
-            self::$_getData = C::arrayMerge(self::$_getData, self::_filterArray($data));
+            self::$_getData = C::arrayMerge(self::$_getData, self::filterArray($data));
         } else {
-            //$_POST = C::arrayMerge($_POST, $data);
-            self::$_postData = C::arrayMerge(self::$_postData, self::_filterArray($data));
+            self::$_postData = C::arrayMerge(self::$_postData, self::filterArray($data));
         }
     }
     
@@ -118,6 +121,7 @@ class Request {
      * @param type $type
      */
     public static function unsetParam($key, $type='get') {
+        self::_checkDeal();
         if ('get' == $type) {
             unset(self::$_getData[$key]);
             unset($_GET[$key]);
@@ -182,7 +186,7 @@ class Request {
      * @return type
      */
     public static function filterText($txt) {
-        self::_checkDeal();
+        //self::_checkDeal();
         $txt = trim($txt);
         if (XSS_MODE) {
             $txt = htmlspecialchars($txt);
@@ -198,16 +202,17 @@ class Request {
      * @param type $data
      * @return type
      */
-    private static function _filterArray($data){
+    public static function filterArray($data){
         if (!is_array($data)) {
             return self::filterText($data);
         } else {
+            $res = array();
             foreach ($data as $key => $val) {
-                $key = self::_filterArray($key);
-                $val = self::_filterArray($val);
-                $data[$key] = $val;
+                $k = self::filterArray($key);
+                $v = self::filterArray($val);
+                $res[$k] = $v;
             }
-            return $data;
+            return $res;
         }
     }
     
@@ -243,9 +248,11 @@ class Request {
      * @param type $type
      * @return type
      */
-    private static function _filter($key, $data, $default, $type){
-        self::_checkDeal();
-        if (is_null($key) || !isset($data[$key])) return $default;
+    public static function filter($key, $data, $default, $type){
+        //self::_checkDeal();
+        if (is_null($key) || !isset($data[$key])) {
+            return $default;
+        }
         switch ($type) {
             case 'int':
                 return intval($data[$key]);
