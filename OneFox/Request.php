@@ -57,12 +57,12 @@ class Request {
     }
     
     public static function posts(){
-        self::checkDeal();
+        self::_checkDeal();
         return self::$_postData;
     }
     
     public static function cookie($key, $default=null, $type='str'){
-        self::checkDeal();
+        self::_checkDeal();
         return self::filter($key, self::$_cookieData, $default, $type);
     }
     
@@ -186,7 +186,6 @@ class Request {
      * @return type
      */
     public static function filterText($txt) {
-        //self::_checkDeal();
         $txt = trim($txt);
         if (XSS_MODE) {
             $txt = htmlspecialchars($txt);
@@ -249,7 +248,6 @@ class Request {
      * @return type
      */
     public static function filter($key, $data, $default, $type){
-        //self::_checkDeal();
         if (is_null($key) || !isset($data[$key])) {
             return $default;
         }
