@@ -22,14 +22,11 @@ final class Onefox {
             die('ONEFOX_PATH is not defined.');
         }
         
-        //--------记录程序开始时间及使用内存--------//
-        self::$_startTime = microtime(true);
-        self::$_memoryStart = memory_get_usage(true);
-        
         //--------设置时区--------//
         date_default_timezone_set("PRC");
         
         //--------定义常量--------//
+        define('ONEFOX_VERSION', '1.0.0');
         define('IS_CLI',PHP_SAPI=='cli' ? true:false);
         !defined('DS') && define('DS', DIRECTORY_SEPARATOR);//目录分隔符
         !defined('PATH_DEEP') && define('PATH_DEEP', 3);//Controller目录结构
@@ -50,10 +47,12 @@ final class Onefox {
             define('MAGIC_QUOTES_GPC',false);
         }
         
-        //--------设置错误显示--------//
+        //--------设置错误级别, 记录程序开始时间及内存--------//
         if (DEBUG) {
             ini_set('display_errors', 'On');
             error_reporting(E_ALL ^ E_NOTICE);
+            self::$_startTime = microtime(true);
+            self::$_memoryStart = memory_get_usage(true);
         }
         
         //--------自动注册类--------//
@@ -77,7 +76,7 @@ final class Onefox {
         //--------执行--------//
         self::_exec();
         
-        return ;
+        return;
     }
     
     public static function autoload($className){
@@ -156,7 +155,7 @@ final class Onefox {
         if (DEBUG) {
             $log_info['url'] = $_SERVER['REQUEST_URI'];
             $log_info['runtime'] = number_format((microtime(true) - self::$_startTime) * 1000, 0).'ms';
-            $log_info['runmem'] = number_format( (memory_get_usage(true) - self::$_memoryStart) / (1024), 0, ",", "." ).'kb';
+            $log_info['runmemory'] = number_format( (memory_get_usage(true) - self::$_memoryStart) / (1024), 0, ",", "." ).'kb';
             C::log($log_info);
         }
     }
