@@ -29,13 +29,6 @@ class Response {
     }
     
     /**
-     * 输出jsonp数据
-     */
-    public static function jsonp($data){
-        //code
-    }
-    
-    /**
      * 输出xml数据
      * @param type $data
      */

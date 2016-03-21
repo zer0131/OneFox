@@ -13,7 +13,6 @@ abstract class ApiController {
     const CODE_FAIL = 1;
 
     public function __construct() {
-        $this->view = new View(); 
         //此方法可初始化控制器
         if (method_exists($this, '_init')){
             $this->_init();
