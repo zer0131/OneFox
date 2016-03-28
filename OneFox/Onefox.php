@@ -29,7 +29,7 @@ final class Onefox {
         define('ONEFOX_VERSION', '1.0.0');
         define('IS_CLI',PHP_SAPI=='cli' ? true:false);
         !defined('DS') && define('DS', DIRECTORY_SEPARATOR);//目录分隔符
-        !defined('PATH_DEEP') && define('PATH_DEEP', 3);//Controller目录结构
+        !defined('MODULE_MODE') && define('MODULE_MODE', true);//默认开启模块模式(Controller目录下含有子目录)
         !defined('DEBUG') && define('DEBUG', false);//调试模式
         !defined('LOG_PATH') && define('LOG_PATH', APP_PATH.DS.'Log');//日志目录
         !defined('CONF_PATH') && define('CONF_PATH', APP_PATH.DS.'Config');//配置目录

@@ -17,9 +17,6 @@ class Dispatcher {
     private static $_currentController = null;
     private static $_currentAction = null;
     
-    const PATH_DEEP_3 = 3;
-    const PATH_DEEP_2 = 2;
-    
     public static function dipatcher(){
         //处理url
         if (!IS_CLI) {
@@ -51,7 +48,7 @@ class Dispatcher {
         $uri = self::$_uri;
         $moduleName = null;
         if ($uri == '') {
-            if (PATH_DEEP == self::PATH_DEEP_3) {
+            if (MODULE_MODE) {
                 $moduleName = self::$_defaultModule;
             }
             $controllerName = self::$_defaultController;
@@ -59,7 +56,7 @@ class Dispatcher {
         } else {
             $uriArr = explode('/', $uri);
             
-            if (PATH_DEEP == self::PATH_DEEP_3) {
+            if (MODULE_MODE) {
                 $moduleName = array_shift($uriArr);
                 if(count($uriArr)>0){
                     $controllerName = array_shift($uriArr);

@@ -83,7 +83,7 @@ class View {
             return $path;
         }
         if (''===$path) {
-            if (PATH_DEEP == 3) {
+            if (MODULE_MODE) {
                 $path = CURRENT_MODULE.DS.CURRENT_CONTROLLER.DS.CURRENT_ACTION;
             } else {
                 $path = CURRENT_CONTROLLER.DS.CURRENT_ACTION;

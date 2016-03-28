@@ -16,8 +16,8 @@ define('APP_PATH', dirname(dirname(__FILE__)));
 //--------定义框架目录(必须)--------//
 define('ONEFOX_PATH',  dirname(APP_PATH).DS.'OneFox');
 
-//--------定义控制器层级(可定义为2或3)--------//
-define('PATH_DEEP', 3);
+//--------开启模块模式(Controller目录下含有子目录, 默认开启)--------//
+define('MODULE_MODE', true);
 
 //--------是否开启调试模式(默认关闭)--------//
 define('DEBUG', true);
