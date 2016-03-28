@@ -26,7 +26,7 @@ final class Onefox {
         date_default_timezone_set("PRC");
         
         //--------定义常量--------//
-        define('ONEFOX_VERSION', '1.0.0');
+        define('ONEFOX_VERSION', '1.0.1');
         define('IS_CLI',PHP_SAPI=='cli' ? true:false);
         !defined('DS') && define('DS', DIRECTORY_SEPARATOR);//目录分隔符
         !defined('MODULE_MODE') && define('MODULE_MODE', true);//默认开启模块模式(Controller目录下含有子目录)
