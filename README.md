@@ -115,3 +115,9 @@ project  WEB部署目录（或者子目录）
 │  ├─View.php           视图解析类文件
 │  └─OneFox.php         框架入口文件
 ```
+
+## 命名规范
+
+> 类名使用驼峰命名法，并且文件名应与类名相同，如：MyClass
+
+> 使用命名空间，并且前缀应与对应的目录名称相同，最好是首字母大写，如：命名空间为Lib\MySpace\MyClass，则文件名Lib/MySpace/MyClass
