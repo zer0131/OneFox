@@ -291,5 +291,26 @@ class C {
         }
         return array( "day" => $days, "hour" => $hours, "min" => $mins, "sec" => $secs );
     }
+
+    /**
+     * 参数签名通用方法
+     * @param p array 参数
+     * @param signKey string 签名字符串
+     * @return string
+     */
+    public static function sign($p, $signKey='2#!&70op#e') {
+        $signStr = '';
+        if (empty($p) || !is_array($p)) {
+            return $signStr;
+        }
+        unset($p['sign']);
+        unset($p['signType']);
+        foreach ($p as $k => $v) {
+            if ($v !== '') {
+                $signStr .= "{$k}={$v}&";
+            }
+        }
+        return md5($signStr.$signKey);
+    }
 }
 
