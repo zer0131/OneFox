@@ -80,12 +80,12 @@ final class Log {
         if (!is_array($msg)) {
             $msg = array('msg'=>$msg);
         }
-        $content = strtoupper($level).' '.$this->_getDate();
+        $content = '['.$this->_getDate().'] ['.strtoupper($level).']';
         foreach ($msg as $key => $val) {
             if (is_array($val)) {
                 $val = json_encode($val);//数组转化成json输出
             }
-            $content .= ' '.$key.'=['.$val.']';
+            $content .= ' ['.$key.']='.$val;
         }
         $content .= PHP_EOL;
         return file_put_contents($this->_logFile, $content, FILE_APPEND);
