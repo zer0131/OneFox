@@ -78,7 +78,7 @@ final class Log {
             return false;
         }
         if (!is_array($msg)) {
-            $msg = array('msg'=>$msg);
+            $msg = array('log msg'=>$msg);
         }
         $content = '['.$this->_getDate().'] ['.strtoupper($level).']';
         foreach ($msg as $key => $val) {
