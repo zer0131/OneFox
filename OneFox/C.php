@@ -114,7 +114,7 @@ class C {
                 $v['sort'] = $level;
                 $v['html'] = '|' . str_repeat($html, $level);
                 $tree[] = $v;
-                $tree = array_merge($tree, $this->html_tree($list, $v['id'], $level + 1, $html));
+                $tree = array_merge($tree, self::htmlToTree($list, $v['id'], $level + 1, $html));
             }
         }
         return $tree;
