@@ -7,6 +7,8 @@
 namespace Controller\Index;
 
 use Controller\BaseController;
+use Test\Test;
+use Service\Service;
 
 class IndexController extends BaseController {
     
@@ -15,5 +17,13 @@ class IndexController extends BaseController {
      */
     public function indexAction(){
 		$this->show();
+    }
+
+    public function testAction() {
+        echo Test::test();
+    }
+
+    public function serviceAction() {
+        echo Service::test();
     }
 }
