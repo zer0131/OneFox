@@ -33,5 +33,3 @@ $dev = array(
 );
 
 return DEBUG ? $dev : $online;
-
-

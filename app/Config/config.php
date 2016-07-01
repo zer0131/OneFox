@@ -14,4 +14,3 @@ $online = array();
 $dev = array();
 
 return DEBUG ? array_merge($common, $dev) : array_merge($common, $online);
-

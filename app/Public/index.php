@@ -1,11 +1,13 @@
 <?php
 
-/** 
+/**
  * @author ryan<zer0131@vip.qq.com>
  * @desc 统一入口
  */
 
-if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
+if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+    die('require PHP > 5.3.0 !');
+}
 
 //--------定义目录分隔符--------//
 define('DS', DIRECTORY_SEPARATOR);
@@ -14,7 +16,7 @@ define('DS', DIRECTORY_SEPARATOR);
 define('APP_PATH', dirname(dirname(__FILE__)));
 
 //--------定义框架目录(必须)--------//
-define('ONEFOX_PATH',  dirname(APP_PATH).DS.'OneFox');
+define('ONEFOX_PATH', dirname(APP_PATH) . DS . 'OneFox');
 
 //--------开启模块模式(Controller目录下含有子目录, 默认开启)--------//
 define('MODULE_MODE', true);
@@ -23,15 +25,15 @@ define('MODULE_MODE', true);
 define('DEBUG', true);
 
 //--------日志目录--------//
-define('LOG_PATH', APP_PATH.DS.'Log');
+define('LOG_PATH', APP_PATH . DS . 'Log');
 
 //--------配置目录--------//
-define('CONF_PATH', APP_PATH.DS.'Config');
+define('CONF_PATH', APP_PATH . DS . 'Config');
 
 //--------模板目录--------//
-define('TPL_PATH', APP_PATH.DS.'Tpl');
+define('TPL_PATH', APP_PATH . DS . 'Tpl');
 
 //--------扩展库目录(默认在app/Lib目录下)--------//
-define(LIB_PATH, dirname(APP_PATH).DS.'Classes');
+define(LIB_PATH, dirname(APP_PATH) . DS . 'Classes');
 
-require ONEFOX_PATH.DS.'Onefox.php';
+require ONEFOX_PATH . DS . 'Onefox.php';
