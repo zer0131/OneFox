@@ -26,7 +26,7 @@ final class Onefox {
         date_default_timezone_set("PRC");
 
         //--------定义常量--------//
-        define('ONEFOX_VERSION', '1.0.5');
+        define('ONEFOX_VERSION', '1.0.6');
         define('REQUEST_ID', uniqid());
         define('IS_CLI', PHP_SAPI == 'cli' ? true : false);
         !defined('DS') && define('DS', DIRECTORY_SEPARATOR);//目录分隔符

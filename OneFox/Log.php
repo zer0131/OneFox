@@ -120,7 +120,7 @@ final class Log {
                 $this->_logFile = $log_dir . DS . $this->_config['filename'] . '.' . $this->_config['ext'];
             }
         } else {
-            $this->_logFile = $log_dir . DS . $this->_config['prefix'] . date('Y-m-d') . '.' . $this->_config['ext'];
+            $this->_logFile = $log_dir . DS . $this->_config['prefix'] . date('YmdH') . '.' . $this->_config['ext'];
         }
     }
 
