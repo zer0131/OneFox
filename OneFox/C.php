@@ -384,5 +384,23 @@ class C {
         }
         return $xml;
     }
+
+    /**
+     * 数据库查询结果排序
+     * 使用方法: C::sortDbRet($data, array('column_name'=>SORT_ASC));
+     * @param $data
+     * @param $columns
+     * @return mixed
+     */
+    public static function sortDbRet($data, $columns) {
+        $args = array();
+        foreach ($columns as $k => $v) {
+            $args[] = array_column($data, $k);
+            $args[] = $v;
+        }
+        $args[] = &$data;
+        call_user_func_array('array_multisort', $args);
+        return array_pop($args);
+    }
 }
 
