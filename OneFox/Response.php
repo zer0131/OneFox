@@ -62,14 +62,14 @@ class Response {
      * @param array $data
      */
     public static function xml($data) {
-        /*header('Content-Type:text/xml; charset=utf-8');
+        header('Content-Type:text/xml; charset=utf-8');
         header('X-Powered-By: OneFox');
         if (DEBUG) {
             $data['request_id'] = REQUEST_ID;
         }
         self::$_resData = $data;
         self::$_resType = 'text/xml';
-        exit(xml_encode($data));*/
+        exit(C::xml_encode($data));
     }
 
     /**
