@@ -402,5 +402,51 @@ class C {
         call_user_func_array('array_multisort', $args);
         return array_pop($args);
     }
+
+    /**
+     * 导出csv文件
+     * @param array $header
+     * @param array $data
+     * @param string $fileName
+     * @param bool $isWin
+     */
+    public static function exportToCSV($header, $data, $fileName, $isWin = true) {
+        set_time_limit(0);
+        ini_set('memory_limit', '256M');
+        $fileName = $fileName . '-' . date('YmdHis') . '.csv';
+        if ($isWin) {
+            header("Content-Type: application/vnd.ms-excel; charset=GB2312");
+        } else {
+            header("Content-Type: application/vnd.ms-excel; charset=UTF-8");
+        }
+        header('Content-Disposition: attachment;filename=' . $fileName);
+        header('Cache-Control: max-age=0');
+        //打开PHP文件句柄，php://output 表示直接输出到浏览器
+        $fp = fopen('php://output', 'a');
+        //输出头处理
+        foreach ($header as $k => $v) {
+            $header[$k] = $isWin ? iconv('utf-8', 'gb2312', $v) : $v;
+        }
+        fputcsv($fp, $header);
+        //计数器
+        $cnt = 0;
+        //buffer刷新行数
+        $limit = 500;
+        foreach ($data as $key => $val) {
+            $cnt++;
+            if ($cnt == $limit) {
+                ob_flush();
+                flush();
+                $cnt = 0;
+            }
+            $row = array();
+            foreach ($val as $i => $v) {
+                $row[] = $isWin ? iconv('utf-8', 'gb2312', $v) : $v;
+            }
+            fputcsv($fp, $row);
+        }
+        fclose($fp);
+        exit;
+    }
 }
 
