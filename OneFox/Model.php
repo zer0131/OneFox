@@ -11,6 +11,7 @@ abstract class Model {
 
     protected $db;
     protected $db_config = 'default';
+    protected $table = '';
 
     public function __construct() {
         $this->db = new DB($this->db_config);
