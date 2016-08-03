@@ -23,9 +23,7 @@ class DB {
         $this->_connect();
     }
 
-    /**
-     * 连接数据库
-     */
+    // 连接数据库
     private function _connect() {
         $dsn = 'mysql:dbname=' . $this->_settings["dbname"] . ';host=' . $this->_settings["host"] . ';port=' . $this->_settings['port'];
         try {
@@ -39,9 +37,7 @@ class DB {
         }
     }
 
-    /**
-     * 错误处理
-     */
+    // 错误处理
     private function _exceptionLog($message, $sql = "") {
         $msg = array('sql error' => $message);
         if (!empty($sql)) {
@@ -54,9 +50,7 @@ class DB {
         $this->_pdo = null;
     }
 
-    /**
-     * 初始化
-     */
+    // 初始化
     private function _init($query, $parameters = "") {
         if (!$this->_bConnected) {
             $this->_connect();
@@ -82,6 +76,8 @@ class DB {
     /**
      * 绑定参数
      * 示例: $db_obj->bind('name', 'ryan')
+     * @param string $para
+     * @param string $value
      */
     public function bind($para, $value) {
         $this->_parameters[sizeof($this->_parameters)] = ":" . $para . "\x7F" . $value;
@@ -90,6 +86,7 @@ class DB {
     /**
      * 批量绑定参数
      * 示例: $db_obj->bindMore(array('name'=>'ryan', 'age'=>20))
+     * @param array $parray
      */
     public function bindMore($parray) {
         if (empty($this->_parameters) && is_array($parray)) {
@@ -107,6 +104,10 @@ class DB {
      * delete: $db_obj->query('delete from `test` where `id`=:id', array('id'=>1))
      * insert: $db_obj->query('insert into `test`(name,age) values(:name,:age)', array('name'=>'ryan','age'=>20))
      * update: $db_obj->query('update `test` set name=:name where `id`=:id', array('name'=>'ryan', 'id'=>7))
+     * @param string $query
+     * @param array $params
+     * @param int $fetchmode
+     * @return
      */
     public function query($query, $params = null, $fetchmode = \PDO::FETCH_ASSOC) {
         $query = trim($query);
@@ -141,6 +142,9 @@ class DB {
     /**
      * 返回一列
      * 示例: $db_obj->column('select name from `test`');
+     * @param string $query
+     * @param array $params
+     * @return array|null
      */
     public function column($query, $params = null) {
         $this->_init($query, $params);
@@ -162,6 +166,10 @@ class DB {
     /**
      * 返回一行
      * 示例: $db_obj->row('select * from `test` where `id`=:id', array('id'=>7))
+     * @param string $query
+     * @param array $params
+     * @param int $fetchmode
+     * @return
      */
     public function row($query, $params = null, $fetchmode = \PDO::FETCH_ASSOC) {
         $this->_init($query, $params);
@@ -179,6 +187,8 @@ class DB {
      * 返回字段值
      * 示例: $db_obj->single('select name from `test` where `id`=:id', array('id'=>7))
      * 结果: ryan
+     * @param string $query
+     * @param array $params
      */
     public function single($query, $params = null) {
         $this->_init($query, $params);
@@ -192,9 +202,7 @@ class DB {
         return $res;
     }
 
-    /**
-     * 类型判断
-     */
+    // 类型判断
     private function _checkType($value) {
         if (is_int($value)) {
             return \PDO::PARAM_INT;
