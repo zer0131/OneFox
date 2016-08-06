@@ -132,9 +132,7 @@ class DB {
         return $res;
     }
 
-    /**
-     * 返回最后插入的主键
-     */
+    // 返回最后插入的主键
     public function lastInsertId($name = null) {
         return $this->_pdo->lastInsertId($name);
     }
@@ -200,6 +198,24 @@ class DB {
         );
         C::log($log);
         return $res;
+    }
+
+    /**
+     * 开始事务 
+     * @return boolean
+     */
+    public function beginTransaction() {
+        return $this->_pdo->beginTransaction();
+    }
+
+    // 执行事务
+    public function executeTransaction() {
+        return $this->_pdo->commit();
+    }
+
+    // 回滚事务
+    public function rollBack() {
+        return $this->_pdo->rollBack();
     }
 
     // 类型判断
