@@ -320,6 +320,7 @@ class C {
 
 
     /**
+     * 签名算法
      * @param $p
      * @param string $signKey
      * @return string
@@ -340,10 +341,11 @@ class C {
     }
 
     /**
+     * 创建类
      * @param $className
      * @return mixed|null
      */
-    public static function classFactory($className) {
+    public static function newClass($className) {
         if (!$className) {
             return null;
         }
