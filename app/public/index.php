@@ -16,7 +16,7 @@ define('DS', DIRECTORY_SEPARATOR);
 define('APP_PATH', dirname(dirname(__FILE__)));
 
 //--------定义框架目录(必须)--------//
-define('ONEFOX_PATH', dirname(APP_PATH) . DS . 'OneFox');
+define('ONEFOX_PATH', dirname(APP_PATH) . DS . 'onefox');
 
 //--------开启模块模式(Controller目录下含有子目录, 默认开启)--------//
 define('MODULE_MODE', true);
@@ -25,13 +25,13 @@ define('MODULE_MODE', true);
 define('DEBUG', true);
 
 //--------日志目录--------//
-define('LOG_PATH', APP_PATH . DS . 'Log');
+define('LOG_PATH', APP_PATH . DS . 'logs');
 
 //--------配置目录--------//
-define('CONF_PATH', APP_PATH . DS . 'Config');
+define('CONF_PATH', APP_PATH . DS . 'config');
 
 //--------模板目录--------//
-define('TPL_PATH', APP_PATH . DS . 'Tpl');
+define('TPL_PATH', APP_PATH . DS . 'tpl');
 
 //--------扩展库目录(默认在app/Lib目录下)--------//
 define(LIB_PATH, dirname(APP_PATH) . DS . 'Classes');

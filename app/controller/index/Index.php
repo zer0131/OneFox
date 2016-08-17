@@ -4,13 +4,13 @@
  * @author ryan<zer0131@vip.qq.com>
  * @desc 默认控制器
  */
-namespace Controller\Index;
+namespace controller\index;
 
-use Controller\BaseController;
+use controller\Base;
 use Test\Test;
 use Service\Service;
 
-class IndexController extends BaseController {
+class Index extends Base {
     
     /**
      * 默认方法

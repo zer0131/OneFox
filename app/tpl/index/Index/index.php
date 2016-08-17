@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
  <head> 
-  <?php $this->import('Comm/header', array('title'=>'欢迎使用OneFox')); ?>
+  <?php $this->import('comm/header', array('title'=>'欢迎使用OneFox')); ?>
   <!-- Bootstrap core CSS --> 
   <link href="/css/bootstrap.min.css" rel="stylesheet" /> 
   <!-- Custom styles for this template --> 

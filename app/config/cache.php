@@ -8,7 +8,7 @@
 $common = array(
     'type' => 'redis', //file, memcache, memcached, redis四种缓存方式
     'file' => array(
-        'path' => APP_PATH . DS . 'Cache',
+        'path' => APP_PATH . DS . 'cache',
         'expire' => 0,
         'prefix' => 'onefox_'
     ),

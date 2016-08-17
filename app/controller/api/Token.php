@@ -1,10 +1,10 @@
 <?php
 
-namespace Controller\Api;
+namespace controller\api;
 
-use OneFox\ApiController;
+use onefox\ApiController;
 
-class TokenController extends ApiController {
+class Token extends ApiController {
     
     public function indexAction(){
         $param = $this->get('test');

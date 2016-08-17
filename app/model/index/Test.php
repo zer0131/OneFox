@@ -1,10 +1,10 @@
 <?php
 
-namespace Model\Index;
+namespace model\index;
 
-use OneFox\Model;
+use onefox\Model;
 
-class TestModel extends Model {
+class Test extends Model {
 
 	protected $db_config = 'test';
 

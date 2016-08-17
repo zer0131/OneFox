@@ -6,7 +6,14 @@
  */
 
 $common = array(
-    'default' => array()
+    'default' => array(
+        'ext' => 'log',
+        'date_format' => 'Y-m-d H:i:s',
+        'filename' => '',
+        'log_path' => '',
+        'prefix' => '',
+        'log_level' => 'info',
+    )
 );
 
 $online = array();
