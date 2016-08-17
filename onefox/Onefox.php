@@ -10,6 +10,8 @@ namespace onefox;
 define('ONEFOX_VERSION', '2.0.0');
 define('REQUEST_ID', uniqid());
 define('IS_CLI', PHP_SAPI == 'cli' ? true : false);
+!defined('APP_PATH') && die('APP_PATH is not defined');
+!defined('ONEFOX_PATH') && die('ONEFOX_PATH is not defined');
 !defined('DS') && define('DS', DIRECTORY_SEPARATOR);//目录分隔符
 !defined('MODULE_MODE') && define('MODULE_MODE', true);//默认开启模块模式(Controller目录下含有子目录)
 !defined('DEBUG') && define('DEBUG', false);//调试模式
@@ -37,13 +39,6 @@ final class Onefox {
     private static $_error;
 
     public static function start() {
-        if (!defined('APP_PATH')) {
-            die('APP_PATH is not difined.');
-        }
-        if (!defined('ONEFOX_PATH')) {
-            die('ONEFOX_PATH is not defined.');
-        }
-
         //--------设置时区--------//
         date_default_timezone_set("PRC");
 
@@ -139,8 +134,8 @@ final class Onefox {
         //-----请求日志------//
         $params = array();
         $log = array(
-            'request' => $_SERVER['REQUEST_URI'],
             'request_id' => REQUEST_ID,
+            'uri' => $_SERVER['REQUEST_URI'],
             'class' => array(
                 'module' => CURRENT_MODULE,
                 'controller' => CURRENT_CONTROLLER,
@@ -206,19 +201,22 @@ final class Onefox {
         }
         //输出日志
         $log = array(
-            'response' => Response::getResData(),
-            'type' => Response::getResType(),
             'request_id' => REQUEST_ID,
+            'run type' => IS_CLI ? 'cli' : 'web',
             'run time' => number_format((microtime(true) - self::$_startTime) * 1000, 0) . 'ms',
             'run memory' => number_format((memory_get_usage(true) - self::$_memoryStart) / (1024), 0, ",", ".") . 'kb'
         );
+        if (!IS_CLI) {
+            $log['response'] = Response::getResData();
+            $log['response type'] = Response::getResType();
+        }
         C::log($log);
     }
 
     private static function _halt($e) {
         if (DEBUG) {
             if (IS_CLI) {
-                exit(iconv('UTF-8', 'gbk', $e->getMessage()) . PHP_EOL . 'FILE: ' . $e->getFile() . '(' . $e->getLine() . ')' . PHP_EOL . $e->getTraceAsString());
+                exit(iconv('UTF-8', 'gbk', $e->getMessage()) . PHP_EOL . 'FILE: ' . $e->getFile() . '(' . $e->getLine() . ')' . PHP_EOL . $e->getTraceAsString() . PHP_EOL);
             }
             include_once ONEFOX_PATH . DS . 'tpl' . DS . 'excetion.html';
         } else {
