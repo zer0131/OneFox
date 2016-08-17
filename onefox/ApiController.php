@@ -2,7 +2,7 @@
 
 /**
  * @author: ryan<zer0131@vip.qq.com>
- * @desc: Api接口控制器
+ * @desc: 接口抽象控制器
  */
 
 namespace onefox;

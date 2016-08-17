@@ -2,7 +2,7 @@
 
 /**
  * @author ryan<zer0131@vip.qq.com>
- * @desc 模板控制器
+ * @desc 模板抽象控制器
  */
 
 namespace onefox;
