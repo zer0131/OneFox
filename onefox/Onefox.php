@@ -124,33 +124,16 @@ final class Onefox {
     }
 
     private static function _exec() {
+        define('CURRENT_MODULE', Dispatcher::getModuleName());
         define('CURRENT_CONTROLLER', Dispatcher::getControllerName());
         define('CURRENT_ACTION', Dispatcher::getActionName());
-        $controllerName = CURRENT_CONTROLLER . 'Controller';
-        $currModule = Dispatcher::getModuleName();
-        $moduleName = '';
-        $realModuleName = '';
-        $className = '';
-        if (!empty($currModule)) {
-            //module名称兼容大小写
-            $moduleName = array(
-                ucfirst(strtolower($currModule)),
-                strtoupper($currModule),
-                strtolower($currModule),
-            );
-        }
-        if (is_array($moduleName)) {
-            foreach ($moduleName as $v) {
-                $className = sprintf('Controller\\%s\\%s', $v, $controllerName);
-                $realModuleName = $v;
-                if (class_exists($className)) {
-                    break;
-                }
-            }
+        $controllerName = CURRENT_CONTROLLER;
+        $moduleName = CURRENT_MODULE;
+        if ($moduleName) {
+            $className = sprintf('controller\\%s\\%s', $moduleName, $controllerName);
         } else {
-            $className = sprintf("Controller\\%s", $controllerName);
+            $className = sprintf("controller\\%s", $controllerName);
         }
-        define('CURRENT_MODULE', $realModuleName);
         //-----请求日志------//
         $params = array();
         $log = array(

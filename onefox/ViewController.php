@@ -2,12 +2,12 @@
 
 /**
  * @author ryan<zer0131@vip.qq.com>
- * @desc 框架抽象控制器
+ * @desc 模板控制器
  */
 
 namespace onefox;
 
-abstract class Controller {
+abstract class ViewController {
 
     protected $view;
 
