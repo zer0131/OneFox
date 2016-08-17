@@ -78,32 +78,37 @@ project  WEB部署目录（或者子目录）
 ├─LICENSE         LICENSE文件
 ├─README.md       README文件 
 ├─app             应用目录 
-└─OneFox          框架目录 
+├─class           公共类文件
+└─onefox          框架目录
 ```
 
 应用目录结构
 ```
 ├─app 
-│  ├─Cache        缓存目录
-│  ├─Config       配置目录 
-│  ├─Controller   Controller目录
-│  ├─Lib          自定义类库目录
-│  ├─Model        Model目录
-│  ├─Tpl          模板目录
-│  ├─Log          日志目录
-│  └─Public       入口目录，可存放资源文件等
+│  ├─cache        缓存目录
+│  ├─config       配置目录
+│  ├─controller   controller目录
+│  │  ├─index     模块目录(如果开启)
+│  ├─lib          自定义类库目录
+│  ├─model        model目录
+│  ├─tpl          模板目录
+│  │  ├─comm      公共模板
+│  │  ├─index     模块目录(如果开启)
+│  │  │  ├─index  控制器目录
+│  ├─log          日志目录
+│  └─public       入口目录，可存放资源文件等
 ```
 
 框架目录结构
 ```
-├─OneFox 
-│  ├─Caches             缓存类目录
-│  ├─Tpl                系统模板目录 
+├─onefox
+│  ├─caches             缓存类目录
+│  ├─tpl                系统模板目录
 │  ├─C.php              公共函数文件
 │  ├─Cache.php          缓存抽象文件
 │  ├─Config.php         配置类文件
-│  ├─Controller.php     基础Controller类文件
-│  ├─ApiController.php  接口抽象类文件
+│  ├─ViewController.php 模板控制器文件
+│  ├─ApiController.php  接口控制器文件
 │  ├─Crypt.php          加解密类文件
 │  ├─Curl.php           Curl类文件
 │  ├─DB.php             数据库范文类文件
@@ -116,10 +121,12 @@ project  WEB部署目录（或者子目录）
 │  └─OneFox.php         框架入口文件
 ```
 
-## 命名规范
+## 使用规范
 
-> 类名使用驼峰命名法，并且文件名应与类名相同，如：MyClass
+> 模块目录需小写, 并且控制器文件名首字母大写
 
-> 使用命名空间，并且前缀应与对应的目录名称相同，最好是首字母大写，如：命名空间为Lib\MySpace\MyClass，则文件名Lib/MySpace/MyClass
+> 扩展库中类名使用驼峰命名法，并且文件名应与类名相同，如：MyClass
 
-> 如果开启模块支持, 模块名称可以根据自己喜好定义, 系统已经对模块名称做了大小写兼容处理
+> 使用命名空间，并且前缀应与对应的目录名称相同，如：命名空间为lib\MySpace\MyClass，则文件名lib/MySpace/MyClass
+
+> 模板目录中控制器目录的首字母需小写
