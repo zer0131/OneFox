@@ -96,7 +96,7 @@ class Dispatcher {
         if (is_null(self::$_currentModule)) {
             self::$_currentModule = '';
         }
-        return self::$_currentModule;
+        return strtolower(self::$_currentModule);
     }
 
     public static function getControllerName() {
