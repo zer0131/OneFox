@@ -19,24 +19,21 @@ class Dispatcher {
 
     public static function dipatcher() {
         //处理url
-        if (!IS_CLI) {
-            if (isset($_SERVER['PATH_INFO'])) {
-                self::$_uri = $_SERVER['PATH_INFO'];
-            } else {
-                $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-                if (0 === strpos($requestUri, $_SERVER['SCRIPT_NAME'])) {
-                    self::$_uri = substr($requestUri, strlen($_SERVER['SCRIPT_NAME']));
-                } elseif (0 === strpos($requestUri, dirname($_SERVER['SCRIPT_NAME']))) {
-                    self::$_uri = substr($requestUri, strlen(dirname($_SERVER['SCRIPT_NAME'])));
-                } else {
-                    self::$_uri = $requestUri;
-                }
-            }
+        if (isset($_SERVER['PATH_INFO'])) {
+            self::$_uri = $_SERVER['PATH_INFO'];
         } else {
-            self::$_uri = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : '';
+            $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            if (0 === strpos($requestUri, $_SERVER['SCRIPT_NAME'])) {
+                self::$_uri = substr($requestUri, strlen($_SERVER['SCRIPT_NAME']));
+            } elseif (0 === strpos($requestUri, dirname($_SERVER['SCRIPT_NAME']))) {
+                self::$_uri = substr($requestUri, strlen(dirname($_SERVER['SCRIPT_NAME'])));
+            } else {
+                self::$_uri = $requestUri;
+            }
         }
 
-        self::$_uri = trim(self::$_uri, '/');//去除'/'
+        //去除'/'
+        self::$_uri = trim(self::$_uri, '/');
 
         self::_httpRout();
     }

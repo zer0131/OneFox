@@ -78,15 +78,17 @@ final class Onefox {
             'OneFox\Onefox',
             'exceptionHandler'
         ));
+        
+        if (!IS_CLI) {
+            //--------处理请求数据--------//
+            Request::deal();
 
-        //--------处理请求数据--------//
-        Request::deal();
+            //--------简单路由--------//
+            Dispatcher::dipatcher();
 
-        //--------简单路由--------//
-        Dispatcher::dipatcher();
-
-        //--------执行--------//
-        self::_exec();
+            //--------执行--------//
+            self::_exec();
+        }
 
         return;
     }
