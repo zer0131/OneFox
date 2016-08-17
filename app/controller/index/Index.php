@@ -7,7 +7,7 @@
 namespace controller\index;
 
 use controller\Base;
-use Test\Test;
+use lib\Test\Test;
 use Service\Service;
 
 class Index extends Base {

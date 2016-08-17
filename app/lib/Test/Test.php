@@ -4,7 +4,7 @@
  * @desc 测试扩展类库
  */
 
-namespace Test;
+namespace lib\Test;
 
 class Test {
     public static function test() {
