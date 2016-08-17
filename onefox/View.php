@@ -88,10 +88,11 @@ class View {
             return $path;
         }
         if ('' === $path) {
+            $controllerName = strtolower(CURRENT_CONTROLLER);
             if (MODULE_MODE) {
-                $path = CURRENT_MODULE . DS . CURRENT_CONTROLLER . DS . CURRENT_ACTION;
+                $path = CURRENT_MODULE . DS . $controllerName . DS . CURRENT_ACTION;
             } else {
-                $path = CURRENT_CONTROLLER . DS . CURRENT_ACTION;
+                $path = $controllerName . DS . CURRENT_ACTION;
             }
         }
         return TPL_PATH . DS . $path . $this->ext;
