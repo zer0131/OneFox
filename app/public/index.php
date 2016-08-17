@@ -34,6 +34,6 @@ define('CONF_PATH', APP_PATH . DS . 'config');
 define('TPL_PATH', APP_PATH . DS . 'tpl');
 
 //--------扩展库目录(默认在app/Lib目录下)--------//
-define(LIB_PATH, dirname(APP_PATH) . DS . 'Classes');
+define(LIB_PATH, dirname(APP_PATH) . DS . 'class');
 
 require ONEFOX_PATH . DS . 'Onefox.php';
