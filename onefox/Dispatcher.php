@@ -5,7 +5,7 @@
  * @desc 调度操作类
  */
 
-namespace OneFox;
+namespace onefox;
 
 class Dispatcher {
 

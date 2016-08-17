@@ -2,21 +2,21 @@
 
 /**
  * @author ryan<zer0131@vip.qq.com>
- * @desc memcached缓存类
+ * @desc memcache缓存类
  */
 
-namespace OneFox\Caches;
+namespace onefox\caches;
 
-use OneFox\Cache;
-use OneFox\Config;
+use onefox\Cache;
+use onefox\Config;
 
-class CMemcached extends Cache {
+class CMemcache extends Cache {
 
-    private $_memcached;
+    private $_memcache;
 
     public function __construct() {
-        if (!extension_loaded('memcached')) {
-            throw new \RuntimeException('memcached扩展未加载');
+        if (!extension_loaded('memcache')) {
+            throw new \RuntimeException('memcache扩展未加载');
         }
         $this->options = Config::get('cache.memcache');
         if (!$this->options) {
@@ -37,62 +37,58 @@ class CMemcached extends Cache {
     }
 
     private function _connect() {
-        $this->_memcached = new \Memcached();
+        $this->_memcache = new \Memcache();
         foreach ($this->options['servers'] as $val) {
-            $this->_memcached->addServer($val['host'], $val['port'], $val['weight']);
+            $this->_memcache->addServer($val['host'], $val['port'], $val['persistent'], $val['weight']);
         }
     }
 
     public function get($name) {
-        if (!$this->_memcached) {
+        if (!$this->_memcache) {
             $this->_connect();
         }
-        return $this->_memcached->get($this->options['prefix'] . $name);
+        return $this->_memcache->get($this->options['prefix'] . $name);
     }
 
     public function set($name, $value, $expire = null) {
-        if (!$this->_memcached) {
+        if (!$this->_memcache) {
             $this->_connect();
         }
         if (is_null($expire)) {
             $expire = $this->options['expire'];
         }
-        if (intval($expire) === 0) {
-            return $this->_memcached->set($this->options['prefix'] . $name, $value, $expire);
-        } else {
-            return $this->_memcached->set($this->options['prefix'] . $name, $value, time() + intval($expire));
-        }
+        return $this->_memcache->set($this->options['prefix'] . $name, $value, 0, $expire);
     }
 
     public function rm($name, $ttl = 0) {
-        if (!$this->_memcached) {
+        if (!$this->_memcache) {
             $this->_connect();
         }
-        return $this->_memcached->delete($this->options['prefix'] . $name, $ttl);
+        return $this->_memcache->delete($this->options['prefix'] . $name, $ttl);
     }
 
     public function clear() {
-        if (!$this->_memcached) {
+        if (!$this->_memcache) {
             $this->_connect();
         }
-        return $this->_memcached->flush();
+        return $this->_memcache->flush();
     }
 
     public function __call($funcName, $arguments) {
-        if (!$this->_memcached) {
+        if (!$this->_memcache) {
             $this->_connect();
         }
         $res = call_user_func_array(array(
-            $this->_memcached,
+            $this->_memcache,
             $funcName
         ), $arguments);
         return $res;
     }
 
     public function __destruct() {
-        $this->_memcached->quit();
-        if ($this->_memcached) {
-            $this->_memcached = null;
+        $this->_memcache->close();
+        if ($this->_memcache) {
+            $this->_memcache = null;
         }
     }
 }

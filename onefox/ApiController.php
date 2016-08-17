@@ -5,7 +5,7 @@
  * @desc: Api接口控制器
  */
 
-namespace OneFox;
+namespace onefox;
 
 abstract class ApiController {
 

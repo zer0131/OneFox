@@ -5,7 +5,7 @@
  * @desc HTTP请求操作类
  */
 
-namespace OneFox;
+namespace onefox;
 
 use RuntimeException;
 

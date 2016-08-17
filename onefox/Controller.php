@@ -5,7 +5,7 @@
  * @desc 框架抽象控制器
  */
 
-namespace OneFox;
+namespace onefox;
 
 abstract class Controller {
 

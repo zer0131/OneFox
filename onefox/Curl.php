@@ -5,7 +5,7 @@
  * @desc curl请求封装
  */
 
-namespace OneFox;
+namespace onefox;
 
 class Curl {
     private $_ch;

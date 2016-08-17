@@ -5,10 +5,10 @@
  * @desc 文件缓存类
  */
 
-namespace OneFox\Caches;
+namespace onefox\caches;
 
-use OneFox\Cache;
-use OneFox\Config;
+use onefox\Cache;
+use onefox\Config;
 
 class CFile extends Cache {
 

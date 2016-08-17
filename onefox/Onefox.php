@@ -5,7 +5,29 @@
  * @desc 核心入口文件
  */
 
-namespace OneFox;
+namespace onefox;
+
+define('ONEFOX_VERSION', '2.0.0');
+define('REQUEST_ID', uniqid());
+define('IS_CLI', PHP_SAPI == 'cli' ? true : false);
+!defined('DS') && define('DS', DIRECTORY_SEPARATOR);//目录分隔符
+!defined('MODULE_MODE') && define('MODULE_MODE', true);//默认开启模块模式(Controller目录下含有子目录)
+!defined('DEBUG') && define('DEBUG', false);//调试模式
+!defined('LOG_PATH') && define('LOG_PATH', APP_PATH . DS . 'logs');//日志目录
+!defined('CONF_PATH') && define('CONF_PATH', APP_PATH . DS . 'config');//配置目录
+!defined('TPL_PATH') && define('TPL_PATH', APP_PATH . DS . 'tpl');//模板目录
+!defined('LIB_PATH') && define('LIB_PATH', APP_PATH . DS . 'lib');//扩展类库目录
+!defined('DEFAULT_MODULE') && define('DEFAULT_MODULE', 'index');//默认执行模块
+!defined('DEFAULT_CONTROLLER') && define('DEFAULT_CONTROLLER', 'Index');//默认执行控制器
+!defined('DEFAULT_ACTION') && define('DEFAULT_ACTION', 'index');//默认执行方法
+!defined('XSS_MODE') && define('XSS_MODE', true);//开启XSS过滤
+!defined('ADDSLASHES_MODE') && define('ADDSLASHES_MODE', false);//不使用addslashes
+if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+    ini_set('magic_quotes_runtime', 0);
+    define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc() ? true : false);
+} else {
+    define('MAGIC_QUOTES_GPC', false);
+}
 
 final class Onefox {
 
@@ -25,30 +47,7 @@ final class Onefox {
         //--------设置时区--------//
         date_default_timezone_set("PRC");
 
-        //--------定义常量--------//
-        define('ONEFOX_VERSION', '1.1.0');
-        define('REQUEST_ID', uniqid());
-        define('IS_CLI', PHP_SAPI == 'cli' ? true : false);
-        !defined('DS') && define('DS', DIRECTORY_SEPARATOR);//目录分隔符
-        !defined('MODULE_MODE') && define('MODULE_MODE', true);//默认开启模块模式(Controller目录下含有子目录)
-        !defined('DEBUG') && define('DEBUG', false);//调试模式
-        !defined('LOG_PATH') && define('LOG_PATH', APP_PATH . DS . 'Log');//日志目录
-        !defined('CONF_PATH') && define('CONF_PATH', APP_PATH . DS . 'Config');//配置目录
-        !defined('TPL_PATH') && define('TPL_PATH', APP_PATH . DS . 'Tpl');//模板目录
-        !defined('LIB_PATH') && define('LIB_PATH', APP_PATH . DS . 'Lib');//扩展类库目录
-        !defined('DEFAULT_MODULE') && define('DEFAULT_MODULE', 'Index');//默认执行模块
-        !defined('DEFAULT_CONTROLLER') && define('DEFAULT_CONTROLLER', 'Index');//默认执行控制器
-        !defined('DEFAULT_ACTION') && define('DEFAULT_ACTION', 'index');//默认执行方法
-        !defined('XSS_MODE') && define('XSS_MODE', true);//开启XSS过滤
-        !defined('ADDSLASHES_MODE') && define('ADDSLASHES_MODE', false);//不使用addslashes
-        if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-            ini_set('magic_quotes_runtime', 0);
-            define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc() ? true : false);
-        } else {
-            define('MAGIC_QUOTES_GPC', false);
-        }
-
-        //--------设置错误级别, 记录程序开始时间及内存--------//
+       //--------设置错误级别, 记录程序开始时间及内存--------//
         if (DEBUG) {
             ini_set('display_errors', 'On');
             error_reporting(E_ALL ^ E_NOTICE);
@@ -107,8 +106,8 @@ final class Onefox {
         $path = strtr($class, '\\', DS);
         $file = null;
         //加载框架文件
-        if (0 === strpos($class, 'OneFox\\')) {
-            $file = ONEFOX_PATH . substr($path, strlen('OneFox')) . self::$_ext;
+        if (0 === strpos($class, 'onefox\\')) {
+            $file = ONEFOX_PATH . substr($path, strlen('onefox')) . self::$_ext;
             return $file;
         }
         //加载应用目录下文件
@@ -236,7 +235,7 @@ final class Onefox {
             if (IS_CLI) {
                 exit(iconv('UTF-8', 'gbk', $e->getMessage()) . PHP_EOL . 'FILE: ' . $e->getFile() . '(' . $e->getLine() . ')' . PHP_EOL . $e->getTraceAsString());
             }
-            include_once ONEFOX_PATH . DS . 'Tpl' . DS . 'excetion.html';
+            include_once ONEFOX_PATH . DS . 'tpl' . DS . 'excetion.html';
         } else {
             $log_info['url'] = $_SERVER['REQUEST_URI'];
             $log_info['errmsg'] = $e->getMessage();
@@ -252,7 +251,7 @@ final class Onefox {
             }
             header('HTTP/1.1 404 Not Found');
             header('Status:404 Not Found');
-            include_once ONEFOX_PATH . DS . 'Tpl' . DS . '404.html';
+            include_once ONEFOX_PATH . DS . 'tpl' . DS . '404.html';
         }
     }
 }

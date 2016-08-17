@@ -5,7 +5,7 @@
  * @desc: 读取配置文件
  */
 
-namespace OneFox;
+namespace onefox;
 
 class Config {
 

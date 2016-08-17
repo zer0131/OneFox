@@ -5,7 +5,7 @@
  * @desc HTTP返回操作类
  */
 
-namespace OneFox;
+namespace onefox;
 
 class Response {
 

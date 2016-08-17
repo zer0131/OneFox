@@ -5,7 +5,7 @@
  * @desc 一些通用工具
  */
 
-namespace OneFox;
+namespace onefox;
 
 class C {
 

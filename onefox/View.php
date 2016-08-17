@@ -5,7 +5,7 @@
  * @desc 视图类
  */
 
-namespace OneFox;
+namespace onefox;
 
 class View {
 

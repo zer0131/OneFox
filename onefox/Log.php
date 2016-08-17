@@ -5,7 +5,7 @@
  * @desc 日志类
  */
 
-namespace OneFox;
+namespace onefox;
 
 final class Log {
 

@@ -5,7 +5,7 @@
  * @desc: 基础Model类
  */
 
-namespace OneFox;
+namespace onefox;
 
 abstract class Model {
 

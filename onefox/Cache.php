@@ -5,7 +5,7 @@
  * @desc 缓存抽象类
  */
 
-namespace OneFox;
+namespace onefox;
 
 abstract class Cache {
     protected static $instance;

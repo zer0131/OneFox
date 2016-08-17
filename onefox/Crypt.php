@@ -5,7 +5,7 @@
  * @desc 加解密类
  */
 
-namespace OneFox;
+namespace onefox;
 
 class Crypt {
 

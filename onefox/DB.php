@@ -5,7 +5,7 @@
  * @desc 数据库访问类，基于PDO
  */
 
-namespace OneFox;
+namespace onefox;
 
 class DB {
 
