@@ -349,7 +349,10 @@ class C {
         if (!$className) {
             return null;
         }
-        if (!isset(self::$_classObj[$className]) && !self::$_classObj[$className] && class_exists($className)) {
+        if (!isset(self::$_classObj[$className]) || !self::$_classObj[$className]) {
+            if (!class_exists($className)) {
+                return null;
+            }
             self::$_classObj[$className] = new $className;
         }
         return self::$_classObj[$className];
