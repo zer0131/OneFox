@@ -69,7 +69,7 @@ class Response {
         }
         self::$_resData = $data;
         self::$_resType = 'text/xml';
-        exit(C::xml_encode($data));
+        exit(C::xmlEncode($data));
     }
 
     /**
