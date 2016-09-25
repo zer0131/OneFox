@@ -20,10 +20,10 @@ class Index extends Base {
     }
 
     public function testAction() {
-        echo Test::test();
+        Test::test();
     }
 
     public function serviceAction() {
-        echo Service::test();
+        Service::composerTest();
     }
 }

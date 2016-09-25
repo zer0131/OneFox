@@ -8,6 +8,6 @@ namespace lib\Test;
 
 class Test {
     public static function test() {
-        return 'test ok';
+        dumper('test ok');
     }
 }
