@@ -13,6 +13,7 @@ define('IS_CLI', PHP_SAPI == 'cli' ? true : false);
 !defined('APP_PATH') && die('APP_PATH is not defined');
 !defined('ONEFOX_PATH') && die('ONEFOX_PATH is not defined');
 !defined('DS') && define('DS', DIRECTORY_SEPARATOR);//目录分隔符
+define('VENDOR_PATH', dirname(__DIR__) . DS . 'vendor'); //定义composer vendor目录
 !defined('MODULE_MODE') && define('MODULE_MODE', true);//默认开启模块模式(Controller目录下含有子目录)
 !defined('DEBUG') && define('DEBUG', false);//调试模式
 !defined('LOG_PATH') && define('LOG_PATH', APP_PATH . DS . 'logs');//日志目录
@@ -30,6 +31,7 @@ if (version_compare(PHP_VERSION, '5.4.0', '<')) {
 } else {
     define('MAGIC_QUOTES_GPC', false);
 }
+require_once __DIR__ . DS . 'functions.php';
 
 final class Onefox {
 
@@ -73,7 +75,12 @@ final class Onefox {
             'OneFox\Onefox',
             'exceptionHandler'
         ));
-        
+
+        //--------引入composer机制--------//
+        if (is_dir(VENDOR_PATH) && is_file(VENDOR_PATH.DS.'autoload.php')) {
+            require VENDOR_PATH.DS.'autoload.php';
+        }
+
         if (!IS_CLI) {
             //--------处理请求数据--------//
             Request::deal();
