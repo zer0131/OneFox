@@ -1,0 +1,25 @@
+{
+  "name":"zer0131/OneFox",
+  "description":"a simple php framework",
+  "version":"2.0.0",
+  "type":"project",
+  "homepage":"https://github.com/zer0131/OneFox",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ryan",
+      "email": "zer0131@vip.qq.com",
+      "homepage": "http://www.appryan.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0"
+    //"symfony/var-dumper": "*"
+  },
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.phpcomposer.com"
+    }
+  }
+}
