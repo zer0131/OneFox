@@ -118,6 +118,7 @@ project  WEB部署目录（或者子目录）
 │  ├─Request.php        请求类文件
 │  ├─Response.php       响应类文件
 │  ├─View.php           视图解析类文件
+│  ├─functions.php      常用函数文件
 │  └─OneFox.php         框架入口文件
 ```
 
@@ -130,3 +131,9 @@ project  WEB部署目录（或者子目录）
 > 使用命名空间，并且前缀应与对应的目录名称相同，如：命名空间为lib\MySpace\MyClass，则文件名lib/MySpace/MyClass
 
 > 模板目录中控制器目录的首字母需小写
+
+## 关于composer
+
+框架自动识别composer中的vendor目录, 请在composer.json中引入你要使用的类库。
+
+[composer具体用法](http://docs.phpcomposer.com/)

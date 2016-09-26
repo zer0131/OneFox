@@ -110,9 +110,9 @@ class Request {
         }
 
         if ($type == 'get') {
-            self::$_getData = C::arrayMerge(self::$_getData, self::filterArray($data));
+            self::$_getData = array_merge(self::$_getData, self::filterArray($data));
         } else {
-            self::$_postData = C::arrayMerge(self::$_postData, self::filterArray($data));
+            self::$_postData = array_merge(self::$_postData, self::filterArray($data));
         }
     }
 
@@ -148,7 +148,7 @@ class Request {
      * @return bool
      */
     public static function isAjax() {
-        return (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
+        return !empty($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
     }
 
     /**
@@ -159,7 +159,7 @@ class Request {
      */
     public static function ip($type = 0, $adv = false) {
         $type = $type ? 1 : 0;
-        $ip = NULL;
+        $ip = null;
         if ($ip !== null)
             return $ip;
         if ($adv) {
@@ -213,39 +213,14 @@ class Request {
     public static function filterArray($data) {
         if (!is_array($data)) {
             return self::filterText($data);
-        } else {
-            $res = array();
-            foreach ($data as $key => $val) {
-                $k = self::filterArray($key);
-                $v = self::filterArray($val);
-                $res[$k] = $v;
-            }
-            return $res;
         }
-    }
-
-    /**
-     * 检测初始化
-     */
-    private static function _checkDeal() {
-        if (!self::$_hasInit) {
-            self::deal();
+        $res = array();
+        foreach ($data as $key => $val) {
+            $k = self::filterArray($key);
+            $v = self::filterArray($val);
+            $res[$k] = $v;
         }
-    }
-
-    /**
-     * 清除原始的请求数据
-     */
-    private static function _resetRequestData() {
-        $_GET = null;
-        $_POST = null;
-        $_REQUEST = null;
-        $_COOKIE = null;
-
-        $_GET = self::$_getData;
-        $_POST = self::$_postData;
-        $_COOKIE = self::$_cookieData;
-
+        return $res;
     }
 
     /**
@@ -273,6 +248,30 @@ class Request {
                 return $default;
                 break;
         }
+    }
+
+    /**
+     * 检测初始化
+     */
+    private static function _checkDeal() {
+        if (!self::$_hasInit) {
+            self::deal();
+        }
+    }
+
+    /**
+     * 清除原始的请求数据
+     */
+    private static function _resetRequestData() {
+        $_GET = null;
+        $_POST = null;
+        $_REQUEST = null;
+        $_COOKIE = null;
+
+        $_GET = self::$_getData;
+        $_POST = self::$_postData;
+        $_COOKIE = self::$_cookieData;
+
     }
 }
 

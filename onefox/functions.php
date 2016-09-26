@@ -16,7 +16,7 @@ if (!function_exists('dumper')) {
         var_dump($var);
         $output = ob_get_clean();
         $output = preg_replace('/\]\=\>\n(\s+)/m', '] => ', $output);
-        if (IS_CLI) {
+        if ('cli' == PHP_SAPI) {
             $output = PHP_EOL . $output . PHP_EOL;
         } else {
             $output = '<pre style="margin:10px;padding:30px;font-size: 16px;background: #f2f2f2;border-radius:10px 10px;">' . htmlspecialchars($output, ENT_QUOTES) . '</pre>';

@@ -2,7 +2,7 @@
 
 /**
  * @author ryan<zer0131@vip.qq.com>
- * @desc 一些通用工具
+ * @desc 通用工具类
  */
 
 namespace onefox;
@@ -22,10 +22,9 @@ class C {
             $base = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         }
         $left = trim($str, $base);
-        if ($left === '') {
+        if ( '' === $left) {
             return $str;
         } else {
-            //$ret = str_replace($left, '', $str);
             return '';
         }
     }
@@ -55,23 +54,6 @@ class C {
 
     public static function logNotice($msg) {
         self::log($msg, Log::NOTICE);
-    }
-
-    /**
-     * 安全数组合并
-     * @param array $ar1
-     * @param array $ar2
-     * @return array|null
-     */
-    public static function arrayMerge($ar1, $ar2) {
-        if (is_array($ar1) && is_array($ar2)) {
-            return array_merge($ar1, $ar2);
-        } elseif (is_array($ar1) && !is_array($ar2)) {
-            return $ar1;
-        } elseif (!is_array($ar1) && is_array($ar2)) {
-            return $ar2;
-        }
-        return null;
     }
 
     /**
@@ -249,20 +231,20 @@ class C {
      * @param string $encoding 数据编码
      * @return string
      */
-    public static function xmlEncode($data, $root='onefox', $item='item', $attr='', $id='id', $encoding='utf-8') {
-        if(is_array($attr)){
+    public static function xmlEncode($data, $root = 'onefox', $item = 'item', $attr = '', $id = 'id', $encoding = 'utf-8') {
+        if (is_array($attr)) {
             $_attr = array();
             foreach ($attr as $key => $value) {
                 $_attr[] = "{$key}=\"{$value}\"";
             }
             $attr = implode(' ', $_attr);
         }
-        $attr   = trim($attr);
-        $attr   = empty($attr) ? '' : " {$attr}";
-        $xml    = "<?xml version=\"1.0\" encoding=\"{$encoding}\"?>";
-        $xml   .= "<{$root}{$attr}>";
-        $xml   .= self::data2Xml($data, $item, $id);
-        $xml   .= "</{$root}>";
+        $attr = trim($attr);
+        $attr = empty($attr) ? '' : " {$attr}";
+        $xml = "<?xml version=\"1.0\" encoding=\"{$encoding}\"?>";
+        $xml .= "<{$root}{$attr}>";
+        $xml .= self::data2Xml($data, $item, $id);
+        $xml .= "</{$root}>";
         return $xml;
     }
 
@@ -276,13 +258,13 @@ class C {
     public static function data2Xml($data, $item='item', $id='id') {
         $xml = $attr = '';
         foreach ($data as $key => $val) {
-            if(is_numeric($key)){
+            if (is_numeric($key)) {
                 $id && $attr = " {$id}=\"{$key}\"";
-                $key  = $item;
+                $key = $item;
             }
-            $xml    .=  "<{$key}{$attr}>";
-            $xml    .=  (is_array($val) || is_object($val)) ? self::data2Xml($val, $item, $id) : $val;
-            $xml    .=  "</{$key}>";
+            $xml .= "<{$key}{$attr}>";
+            $xml .= (is_array($val) || is_object($val)) ? self::data2Xml($val, $item, $id) : $val;
+            $xml .= "</{$key}>";
         }
         return $xml;
     }
