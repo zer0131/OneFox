@@ -21,7 +21,7 @@ server {
     listen  80;
     server_name  www.appryan.com appryan.com;
     index index.php index.html index.html;
-    root /home/project/app/Public;
+    root /home/project/app/public;
     location / {
         try_files $uri $uri/ /index.php?$args;
     }
@@ -51,7 +51,7 @@ if ($host != 'www.appryan.com') {
 ### apache配置示例
 ```
 <VirtualHost 80>
-    DocumentRoot "/home/project/app/Public"
+    DocumentRoot "/home/project/app/public"
     ServerName www.appryan.com
     ServerAlias www.appryan.com
     ErrorLog "logs/OneFox.error.log"
@@ -89,13 +89,14 @@ project  WEB部署目录（或者子目录）
 │  ├─config       配置目录
 │  ├─controller   controller目录
 │  │  ├─index     模块目录(如果开启)
-│  ├─lib          自定义类库目录
+│  ├─lib          应用类库目录
 │  ├─model        model目录
 │  ├─tpl          模板目录
 │  │  ├─comm      公共模板
 │  │  ├─index     模块目录(如果开启)
 │  │  │  ├─index  控制器目录
-│  ├─log          日志目录
+│  ├─logs         日志目录
+│  ├─daemon       守护进程目录
 │  └─public       入口目录，可存放资源文件等
 ```
 
