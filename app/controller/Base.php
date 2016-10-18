@@ -2,9 +2,9 @@
 
 namespace controller;
 
-use onefox\ViewController;
+use onefox\Controller;
 
-abstract class Base extends ViewController {
+abstract class Base extends Controller  {
 
 	protected function _init(){
         //code

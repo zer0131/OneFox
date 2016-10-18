@@ -2,9 +2,9 @@
 
 namespace controller\api;
 
-use onefox\ApiController;
+use onefox\Controller;
 
-class Token extends ApiController {
+class Token extends Controller  {
     
     public function indexAction(){
         $param = $this->get('test');
