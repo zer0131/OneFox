@@ -108,8 +108,7 @@ project  WEB部署目录（或者子目录）
 │  ├─C.php              公共函数文件
 │  ├─Cache.php          缓存抽象文件
 │  ├─Config.php         配置类文件
-│  ├─ViewController.php 模板控制器文件
-│  ├─ApiController.php  接口控制器文件
+│  ├─Controller.php     抽象控制器文件
 │  ├─Crypt.php          加解密类文件
 │  ├─Curl.php           Curl类文件
 │  ├─DB.php             数据库范文类文件
