@@ -44,7 +44,7 @@ final class Onefox {
         //--------设置时区--------//
         date_default_timezone_set("PRC");
 
-       //--------设置错误级别, 记录程序开始时间及内存--------//
+        //--------设置错误级别, 记录程序开始时间及内存--------//
         if (DEBUG) {
             ini_set('display_errors', 'On');
             error_reporting(E_ALL ^ E_NOTICE);
@@ -77,9 +77,12 @@ final class Onefox {
         ));
 
         //--------引入composer机制--------//
-        if (is_dir(VENDOR_PATH) && is_file(VENDOR_PATH.DS.'autoload.php')) {
-            require VENDOR_PATH.DS.'autoload.php';
+        if (is_dir(VENDOR_PATH) && is_file(VENDOR_PATH . DS . 'autoload.php')) {
+            require VENDOR_PATH . DS . 'autoload.php';
         }
+
+        //--------session设置--------//
+        self::_initSession();
 
         if (!IS_CLI) {
             //--------处理请求数据--------//
@@ -104,7 +107,7 @@ final class Onefox {
         return false;
     }
 
-    //解析路径
+    // 解析路径
     private static function _parseClassPath($className) {
         $class = $className;
         $path = strtr($class, '\\', DS);
@@ -242,6 +245,44 @@ final class Onefox {
             header('HTTP/1.1 404 Not Found');
             header('Status:404 Not Found');
             include_once ONEFOX_PATH . DS . 'tpl' . DS . '404.html';
+        }
+    }
+
+    // 初始化session
+    private static function _initSession() {
+        $sessionConf = Config::get('session');
+        if (isset($sessionConf['auto_start']) && $sessionConf['auto_start']) {
+            if (isset($sessionConf['name']) && $sessionConf['name']) {
+                session_name($sessionConf['name']);
+            }
+            if (isset($sessionConf['path']) && $sessionConf['path']) {
+                session_save_path($sessionConf['path']);
+            }
+            if (isset($sessionConf['gc_maxlifetime']) && $sessionConf['gc_maxlifetime']) {
+                ini_set('session.gc_maxlifetime', $sessionConf['gc_maxlifetime']);
+            }
+            if (isset($sessionConf['cookie_lifetime']) && $sessionConf['cookie_lifetime']) {
+                ini_set('session.cookie_lifetime', $sessionConf['cookie_lifetime']);
+            }
+            if (isset($sessionConf['cookie_httponly']) && $sessionConf['cookie_httponly']) {
+                ini_set('session.cookie_httponly', $sessionConf['cookie_httponly']);
+            }
+            if (isset($sessionConf['cookie_domain']) && $sessionConf['cookie_domain']) {
+                ini_set('session.cookie_domain', $sessionConf['cookie_domain']);
+            }
+            if (isset($sessionConf['use_trans_sid']) && $sessionConf['use_trans_sid']) {
+                ini_set('session.use_trans_sid', $sessionConf['use_trans_sid']);
+            }
+            if (isset($sessionConf['use_cookies']) && $sessionConf['use_cookies']) {
+                ini_set('session.use_cookies', $sessionConf['use_cookies']);
+            }
+            if (isset($sessionConf['cache_limiter']) && $sessionConf['cache_limiter']) {
+                session_cache_limiter($sessionConf['cache_limiter']);
+            }
+            if (isset($sessionConf['cache_expire']) && $sessionConf['cache_expire']) {
+                session_cache_expire($sessionConf['cache_expire']);
+            }
+            session_start();
         }
     }
 }

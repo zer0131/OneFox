@@ -30,6 +30,32 @@ if (!function_exists('dumper')) {
 }
 
 /**
+ * session操作快捷函数
+ * @param string $name session名称
+ * @param string $value session值
+ */
+if (!function_exists('session')) {
+    function session($name, $value = '') {
+        if ('' === $value) {
+            if (is_null($name)) {
+                // 清除所有session
+                $_SESSION = array();
+            } else {
+                // 读取session
+                return isset($_SESSION[$name]) ? unserialize(base64_decode($_SESSION[$name])) : null;
+            }
+        } elseif (is_null($value)) {
+            // 清除某个session
+            unset($_SESSION[$name]);
+        } else {
+            // 设置session
+            $_SESSION[$name] = base64_encode(serialize($value));
+        }
+        return null;
+    }
+}
+
+/**
  * 兼容gzip解压
  * @param string $data
  * @param string $filename
