@@ -42,6 +42,7 @@ nb-configuration.xml
 doc/
 app/cache/
 app/logs/
+app/session/
 vendor/
 composer.lock
 
