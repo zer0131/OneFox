@@ -32,21 +32,19 @@ class Curl {
      * GET请求
      * 请求时url中不需要携带参数，参数以$params数组传入
      */
-    public function get($url, $params = array()) {
+    public function get($url, $params = array(), $header = array()) {
         if ($params) {
             $url .= '?' . http_build_query($params);
         }
-        $this->_config[CURLOPT_URL] = $url;
-        curl_setopt_array($this->_ch, $this->_config);
-        $result = curl_exec($this->_ch);
-        return $result;
+        $header && $this->_config[CURLOPT_HTTPHEADER] = $header;
+        return $this->request($url);
     }
 
     /**
      * POST请求
      * $multi为数组时，则可以传文件
      */
-    public function post($url, $params = array(), $multi = false) {
+    public function post($url, $params = array(), $header = array(), $isJson = false, $multi = false) {
         $this->_config[CURLOPT_URL] = $url;
         $this->_config[CURLOPT_POST] = true;
         if ($params) {
@@ -59,9 +57,10 @@ class Curl {
                     }
                 }
             } else {
-                $this->_config[CURLOPT_POSTFIELDS] = http_build_query($params);
+                $this->_config[CURLOPT_POSTFIELDS] = $isJson ? json_encode($params) : http_build_query($params);
             }
         }
+        $header && $this->_config[CURLOPT_HTTPHEADER] = $header;
         curl_setopt_array($this->_ch, $this->_config);
         $result = curl_exec($this->_ch);
         return $result;
@@ -70,37 +69,37 @@ class Curl {
     /**
      * PUT请求
      */
-    public function put($url, $params = array()) {
+    public function put($url, $params = array(), $header = array(), $isJson = false) {
         $this->_config[CURLOPT_CUSTOMREQUEST] = 'PUT';
-        $this->_config[CURLOPT_URL] = $url;
         if ($params) {
-            $this->_config[CURLOPT_POSTFIELDS] = http_build_query($params);
+            $this->_config[CURLOPT_POSTFIELDS] = $isJson ? json_encode($params) : http_build_query($params);
         }
-        curl_setopt_array($this->_ch, $this->_config);
-        $result = curl_exec($this->_ch);
-        return $result;
+        $header && $this->_config[CURLOPT_HTTPHEADER] = $header;
+        return $this->request($url);
     }
 
     /**
      * DELETE请求
      */
-    public function delete($url, $params = array()) {
+    public function delete($url, $params = array(), $header = array(), $isJson = false) {
         $this->_config[CURLOPT_CUSTOMREQUEST] = 'DELETE';
-        $this->_config[CURLOPT_URL] = $url;
         if ($params) {
-            $this->_config[CURLOPT_POSTFIELDS] = http_build_query($params);
+            $this->_config[CURLOPT_POSTFIELDS] = $isJson ? json_encode($params) : http_build_query($params);
         }
-        curl_setopt_array($this->_ch, $this->_config);
-        $result = curl_exec($this->_ch);
-        return $result;
+        $header && $this->_config[CURLOPT_HTTPHEADER] = $header;
+        return $this->request($url);
     }
 
     /**
      * curl高级请求，可以根据自己的需要设置curl
      */
-    public function request($url, $curl_opt = array()) {
+    public function request($url, $curlOpt = array()) {
         $this->_config[CURLOPT_URL] = $url;
-        array_merge($this->_config, $curl_opt);
+        if ($curlOpt && is_array($curlOpt)) {
+            foreach ($curlOpt as $key => $val) {
+                $this->_config[$key] = $val;
+            }
+        }
         curl_setopt_array($this->_ch, $this->_config);
         $result = curl_exec($this->_ch);
         return $result;
