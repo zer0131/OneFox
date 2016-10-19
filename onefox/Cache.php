@@ -11,9 +11,9 @@ abstract class Cache {
     protected static $instance;
     protected $options = array();
 
-    public static function getInstance() {
+    public static function getInstance($type = '') {
         if (!self::$instance) {
-            $type = Config::get('cache.type', 'file');
+            $type = $type ? $type : Config::get('cache.type', 'file');
             $class = "\\OneFox\\Caches\\" . 'C' . ucwords(strtolower($type));
             self::$instance = new $class();
         }
