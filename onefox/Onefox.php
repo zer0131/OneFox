@@ -252,35 +252,25 @@ final class Onefox {
     private static function _initSession() {
         $sessionConf = Config::get('session');
         if (isset($sessionConf['auto_start']) && $sessionConf['auto_start']) {
+            unset($sessionConf['auto_start']);
             if (isset($sessionConf['name']) && $sessionConf['name']) {
                 session_name($sessionConf['name']);
+                unset($sessionConf['name']);
             }
-            if (isset($sessionConf['path']) && $sessionConf['path']) {
-                session_save_path($sessionConf['path']);
-            }
-            if (isset($sessionConf['gc_maxlifetime']) && $sessionConf['gc_maxlifetime']) {
-                ini_set('session.gc_maxlifetime', $sessionConf['gc_maxlifetime']);
-            }
-            if (isset($sessionConf['cookie_lifetime']) && $sessionConf['cookie_lifetime']) {
-                ini_set('session.cookie_lifetime', $sessionConf['cookie_lifetime']);
-            }
-            if (isset($sessionConf['cookie_httponly']) && $sessionConf['cookie_httponly']) {
-                ini_set('session.cookie_httponly', $sessionConf['cookie_httponly']);
-            }
-            if (isset($sessionConf['cookie_domain']) && $sessionConf['cookie_domain']) {
-                ini_set('session.cookie_domain', $sessionConf['cookie_domain']);
-            }
-            if (isset($sessionConf['use_trans_sid']) && $sessionConf['use_trans_sid']) {
-                ini_set('session.use_trans_sid', $sessionConf['use_trans_sid']);
-            }
-            if (isset($sessionConf['use_cookies']) && $sessionConf['use_cookies']) {
-                ini_set('session.use_cookies', $sessionConf['use_cookies']);
+            if (isset($sessionConf['save_path']) && $sessionConf['save_path']) {
+                session_save_path($sessionConf['save_path']);
+                unset($sessionConf['save_path']);
             }
             if (isset($sessionConf['cache_limiter']) && $sessionConf['cache_limiter']) {
                 session_cache_limiter($sessionConf['cache_limiter']);
+                unset($sessionConf['cache_limiter']);
             }
             if (isset($sessionConf['cache_expire']) && $sessionConf['cache_expire']) {
                 session_cache_expire($sessionConf['cache_expire']);
+                unset($sessionConf['cache_expire']);
+            }
+            foreach ($sessionConf as $key => $val) {
+                $sessionConf[$key] && ini_set('session.' . $key, $val);
             }
             session_start();
         }
