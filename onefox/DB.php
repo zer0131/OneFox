@@ -1,6 +1,6 @@
 <?php
 
-/** 
+/**
  * @author ryan<zer0131@vip.qq.com>
  * @desc 数据库访问类，基于PDO
  */
@@ -28,7 +28,7 @@ class DB {
         $dsn = 'mysql:dbname=' . $this->_settings["dbname"] . ';host=' . $this->_settings["host"] . ';port=' . $this->_settings['port'];
         try {
             $this->_pdo = new \PDO($dsn, $this->_settings["user"], $this->_settings["password"], array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"));
-            //设置属性
+            // 设置属性
             $this->_pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $this->_pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
             $this->_bConnected = true;
@@ -44,6 +44,7 @@ class DB {
             $msg['raw sql'] = $sql;
         }
         C::log($msg, Log::ERROR);
+        throw new \RuntimeException($message);
     }
 
     public function close() {
@@ -201,7 +202,7 @@ class DB {
     }
 
     /**
-     * 开始事务 
+     * 开始事务
      * @return boolean
      */
     public function beginTransaction() {
