@@ -7,7 +7,7 @@
 
 namespace onefox;
 
-abstract class Model {
+abstract class Model extends Base {
 
     protected $db;
     protected $dbConfig = 'default';

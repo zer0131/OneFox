@@ -7,7 +7,7 @@
 
 namespace onefox;
 
-class Curl {
+class Curl extends Base {
     private $_ch;
     private $_config = array(
         CURLOPT_HEADER => false, // 不显示header信息
