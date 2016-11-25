@@ -20,22 +20,22 @@ abstract class Controller {
 
     // 模板赋值
     protected function assign($name, $val = '') {
-        C::newClass('onefox\View')->assign($name, $val);
+        View::singleton()->assign($name, $val);
     }
 
     // 模板输出
     protected function show($tpl = '') {
-        C::newClass('onefox\View')->render($tpl);
+        View::singleton()->render($tpl);
     }
 
     // 引入模板
     protected function import($path, $val = array()) {
-        C::newClass('onefox\View')->import($path, $val);
+        View::singleton()->import($path, $val);
     }
 
     // 获取模板数据流
     protected function fetch($tpl = '') {
-        return C::newClass('onefox\View')->fetch($tpl);
+        return View::singleton()->fetch($tpl);
     }
 
     /**
