@@ -119,6 +119,7 @@ project  WEB部署目录（或者子目录）
 │  ├─Response.php       响应类文件
 │  ├─View.php           视图解析类文件
 │  ├─functions.php      常用函数文件
+│  ├─Base.php           框架基础抽象类文件
 │  └─OneFox.php         框架入口文件
 ```
 
