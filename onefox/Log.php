@@ -9,6 +9,7 @@ namespace onefox;
 
 final class Log {
 
+    //日志级别常量
     const EMERGENCY = 'emergency';
     const ALERT = 'alert';
     const CRITICAL = 'critical';
@@ -18,15 +19,19 @@ final class Log {
     const INFO = 'info';
     const DEBUG = 'debug';
 
+    const LOG_DEFAULT_KEYWORD = 'log_msg';
+
     private static $_instance = null;
     //默认配置
     private $_config = array(
-        'ext' => 'log',
-        'date_format' => 'Y-m-d H:i:s',
-        'filename' => '',
-        'log_path' => '',
-        'prefix' => '',
-        'log_level' => 'info',
+        'ext' => 'log',//日志文件类型
+        'date_format' => 'Y-m-d H:i:s',//日期格式
+        'filename' => '',//日志文件名
+        'log_path' => '',//日志路径
+        'prefix' => '',//日志文件名前缀
+        'log_level' => 'info',//日志输出级别
+        'log_seperator' => '|',//日志输出内容分隔符
+        'log_kv_seperator' => '='//日志内容中的键值分隔符
     );
     //日志文件
     private $_logFile = '';
@@ -44,18 +49,20 @@ final class Log {
 
     /**
      * 实例化类
-     * @param string $conf_str 配置
-     * @return object
+     * @param string $confStr 配置
+     * @return Log
      */
-    public static function instance($conf_str = 'default') {
+    public static function instance($confStr = 'default') {
         if (!self::$_instance) {
-            self::$_instance = new self($conf_str);
+            //注意new self的使用
+            self::$_instance = new self($confStr);
         }
         return self::$_instance;
     }
 
-    public function __construct($conf_str) {
-        $config = Config::get('log.' . $conf_str);
+    //单例模式
+    private function __construct($confStr) {
+        $config = Config::get('log.' . $confStr);
         if ($config) {
             $this->_config = array_merge($this->_config, $config);
         }
@@ -80,14 +87,14 @@ final class Log {
             return false;
         }
         if (!is_array($msg)) {
-            $msg = array('log msg' => $msg);
+            $msg = array(self::LOG_DEFAULT_KEYWORD => $msg);
         }
-        $content = '[' . $this->_getDate() . '] [' . strtoupper($level) . ']';
+        $content = $this->_getDate() . $this->_config['log_seperator'] . strtoupper($level);
         foreach ($msg as $key => $val) {
             if (is_array($val)) {
                 $val = json_encode($val);//数组转化成json输出
             }
-            $content .= ' [' . $key . ']=' . $val;
+            $content .= $this->_config['log_seperator'] . $key . $this->_config['log_kv_seperator'] . $val;
         }
         $content .= PHP_EOL;
         return file_put_contents($this->_logFile, $content, FILE_APPEND);
