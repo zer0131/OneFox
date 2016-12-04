@@ -40,11 +40,11 @@ class View extends Base {
         header('Content-Type: text/html; charset=utf-8');
         header('Cache-control: private');  // 页面缓存控制
         header('X-Powered-By: OneFox');
-        Response::setResData(array(
+        Response::setResponseData(array(
             'template' => $this->_parsePath($tplFile),
             'template_value' => $this->tplVal
         ));
-        Response::setResType('text/html');
+        Response::setResponseType('text/html');
         echo $content;
     }
 

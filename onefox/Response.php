@@ -23,22 +23,22 @@ class Response {
 
 
     //设置返回类型
-    public static function setResType($type) {
+    public static function setResponseType($type) {
         self::$_resType = $type;
     }
 
     //获取返回类型
-    public static function getResType() {
+    public static function getResponseType() {
         return self::$_resType;
     }
 
     //设置输出数据
-    public static function setResData($data) {
+    public static function setResponseData($data) {
         self::$_resData = $data;
     }
 
     //获取返回数据
-    public static function getResData() {
+    public static function getResponseData() {
         return self::$_resData;
     }
 
