@@ -39,7 +39,7 @@ class DB {
 
     // 错误处理
     private function _exceptionLog($message, $sql = "") {
-        $msg = array('sql error' => $message);
+        $msg = array('sql_error' => $message);
         if (!empty($sql)) {
             $msg['raw sql'] = $sql;
         }
