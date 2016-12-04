@@ -92,7 +92,7 @@ class C {
     /**
      * 加载文件
      * @param string $filePath
-     * @return boolean
+     * @return mixed
      */
     public static function loadFile($filePath) {
         if (file_exists($filePath)) {
