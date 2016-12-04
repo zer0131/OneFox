@@ -212,13 +212,13 @@ final class Onefox {
         //输出日志
         $log = array(
             'request_id' => REQUEST_ID,
-            'run type' => IS_CLI ? 'cli' : 'web',
-            'run time' => number_format((microtime(true) - self::$_startTime) * 1000, 0) . 'ms',
-            'run memory' => number_format((memory_get_usage(true) - self::$_memoryStart) / (1024), 0, ",", ".") . 'kb'
+            'run_type' => IS_CLI ? 'cli' : 'web',
+            'run_time' => number_format((microtime(true) - self::$_startTime) * 1000, 0) . 'ms',
+            'run_memory' => number_format((memory_get_usage(true) - self::$_memoryStart) / (1024), 0, ",", ".") . 'kb'
         );
         if (!IS_CLI) {
-            $log['response'] = Response::getResData();
-            $log['response type'] = Response::getResType();
+            $log['response'] = Response::getResponseData();
+            $log['response_type'] = Response::getResponseType();
         }
         C::log($log);
     }
