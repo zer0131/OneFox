@@ -49,6 +49,7 @@ class Response {
     public static function json($data) {
         header('Content-Type:application/json; charset=utf-8');
         header('X-Powered-By: OneFox');
+        header('SN: ' . REQUEST_ID);
         if (DEBUG) {
             $data['request_id'] = REQUEST_ID;
         }
