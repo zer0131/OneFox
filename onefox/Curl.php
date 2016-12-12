@@ -8,6 +8,9 @@
 namespace onefox;
 
 class Curl extends Base {
+
+    const RETRY_NUM = 3;//重试次数
+
     private $_ch;
     private $_config = array(
         CURLOPT_HEADER => false, // 不显示header信息
@@ -17,7 +20,7 @@ class Curl extends Base {
         CURLOPT_SSL_VERIFYPEER => false, // 对认证证书来源的检查
         CURLOPT_SSL_VERIFYHOST => false, // 从证书中检查SSL加密算法是否存在
         CURLOPT_TIMEOUT => 10,// 执行时间
-        CURLOPT_CONNECTTIMEOUT =>3,//连接时间
+        CURLOPT_CONNECTTIMEOUT => 3,//连接时间
         CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0',//请求UA
     );
 
@@ -31,6 +34,10 @@ class Curl extends Base {
     /**
      * GET请求
      * 请求时url中不需要携带参数，参数以$params数组传入
+     * @param string $url
+     * @param array $params
+     * @param array $header
+     * @return mixed
      */
     public function get($url, $params = array(), $header = array()) {
         if ($params) {
@@ -43,6 +50,12 @@ class Curl extends Base {
     /**
      * POST请求
      * $multi为数组时，则可以传文件
+     * @param string $url
+     * @param array $params
+     * @param array $header
+     * @param bool $isJson
+     * @param bool $multi
+     * @return mixed
      */
     public function post($url, $params = array(), $header = array(), $isJson = false, $multi = false) {
         $this->_config[CURLOPT_URL] = $url;
@@ -68,6 +81,11 @@ class Curl extends Base {
 
     /**
      * PUT请求
+     * @param string $url
+     * @params array $params
+     * @params array $header
+     * @params bool $isJson
+     * @return mixed
      */
     public function put($url, $params = array(), $header = array(), $isJson = false) {
         $this->_config[CURLOPT_CUSTOMREQUEST] = 'PUT';
@@ -80,6 +98,11 @@ class Curl extends Base {
 
     /**
      * DELETE请求
+     * @param string $url
+     * @param array $params
+     * @param array $header
+     * @param bool $isJson
+     * @return mixed
      */
     public function delete($url, $params = array(), $header = array(), $isJson = false) {
         $this->_config[CURLOPT_CUSTOMREQUEST] = 'DELETE';
@@ -92,6 +115,9 @@ class Curl extends Base {
 
     /**
      * curl高级请求，可以根据自己的需要设置curl
+     * @param string $url
+     * @param array $curlOpt
+     * @return mixed
      */
     public function request($url, $curlOpt = array()) {
         $this->_config[CURLOPT_URL] = $url;
@@ -107,7 +133,38 @@ class Curl extends Base {
     }
 
     /**
+     * 下载文件
+     * @param string $url
+     * @param string $saveDir
+     * @param bool $retry
+     * @param int $n 记录重试次数
+     * @return string|bool
+     */
+    public function downloadFile($url, $saveDir = APP_PATH.DS.'download', $retry = false, $n = 1) {
+        if (!is_dir($saveDir)) {
+            mkdir($saveDir, 0777, true);
+        }
+        $fileName = $saveDir . DS . date('YmdHis');
+        $this->_config[CURLOPT_URL] = $url;
+        $this->_config[CURLOPT_FOLLOWLOCATION] = 1;
+        $ret = curl_exec($this->_ch);
+        $r = file_put_contents($fileName, $ret);
+        if ($r === false) {
+            if (!$retry) {
+                return false;
+            }
+            if ($n > self::RETRY_NUM) {
+                return false;
+            }
+            $this->downloadFile($url, $saveDir, $retry, ++$n);
+        }
+        return $fileName;
+    }
+
+    /**
      * 请求详细信息
+     * @params int $opt
+     * @return mixed
      */
     public function getInfo($opt = 0) {
         $info = curl_getinfo($this->_ch, $opt);
@@ -116,6 +173,7 @@ class Curl extends Base {
 
     /**
      * 错误信息
+     * @return mixed
      */
     public function getError() {
         return curl_error($this->_ch);
@@ -123,6 +181,7 @@ class Curl extends Base {
 
     /**
      * 错误号，为0则无错误
+     * @return mixed
      */
     public function isError() {
         return curl_errno($this->_ch);
