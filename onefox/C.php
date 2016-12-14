@@ -9,7 +9,7 @@ namespace onefox;
 
 class C {
 
-    private static $_classObj = array();
+    //private static $_classObj = array();
 
     /**
      * @param $str
@@ -34,7 +34,7 @@ class C {
      * @param string|array $msg
      * @param string $level
      * @param string $config
-     * @return object
+     * @return bool
      */
     public static function log($msg, $level = 'info', $config = 'default') {
         return Log::instance($config)->save($msg, $level);
@@ -58,6 +58,9 @@ class C {
 
     /**
      * 迭代创建目录
+     * @param string $path
+     * @param int $mode
+     * @return bool
      */
     public static function mkDirs($path, $mode = 0777) {
         if (!is_dir($path)) {
@@ -105,18 +108,18 @@ class C {
      * 生成模板页面输出用的tree
      * @param array $list 二维数组
      * @param int $pid 父级编号
-     * @parma int $level 层级
+     * @param int $level 层级
      * @param string $html html输出前缀
      * @return array
      */
-    public static function htmlToTree($list, $pid = 0, $level = 1, $html = ' -- ') {
+    public static function html2Tree($list, $pid = 0, $level = 1, $html = ' -- ') {
         $tree = array();
         foreach ($list as $v) {
             if ($v['parent_id'] == $pid) {
                 $v['sort'] = $level;
                 $v['html'] = '|' . str_repeat($html, $level);
                 $tree[] = $v;
-                $tree = array_merge($tree, self::htmlToTree($list, $v['id'], $level + 1, $html));
+                $tree = array_merge($tree, self::html2Tree($list, $v['id'], $level + 1, $html));
             }
         }
         return $tree;
@@ -127,7 +130,7 @@ class C {
      * @param array $data
      * @return array
      */
-    public static function dataToTree($data) {
+    public static function data2Tree($data) {
         $items = array();
         foreach ($data as $val) {
             $items[$val['id']] = $val;
@@ -208,7 +211,7 @@ class C {
      * @param $className
      * @return mixed|null
      */
-    public static function newClass($className) {
+    /*public static function newClass($className) {
         if (!$className) {
             return null;
         }
@@ -219,7 +222,7 @@ class C {
             self::$_classObj[$className] = new $className;
         }
         return self::$_classObj[$className];
-    }
+    }*/
 
     /**
      * XML编码
