@@ -187,7 +187,7 @@ class C {
 
     /**
      * 签名算法
-     * @param $p
+     * @param array $p
      * @param string $signKey
      * @return string
      */
