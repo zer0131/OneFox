@@ -186,23 +186,22 @@ class C {
 
 
     /**
-     * 签名算法
+     * 根据参数获得签名
      * @param array $p
      * @param string $signKey
      * @return string
      */
     public static function sign($p, $signKey = '2#!&70op#e') {
         $signStr = '';
-        if (empty($p) || !is_array($p)) {
-            return $signStr;
-        }
         unset($p['sign']);
-        unset($p['signType']);
-        foreach ($p as $k => $v) {
-            if ($v !== '') {
-                $signStr .= "{$k}={$v}&";
+        if (is_array($p) && !empty($p) && ksort($p)) {
+            foreach ($p as $k => $v) {
+                if ($v !== '') {
+                    $signStr .= "{$k}={$v}&";
+                }
             }
         }
+        $signStr = rtrim($signStr, '&');
         return md5($signStr . $signKey);
     }
 
