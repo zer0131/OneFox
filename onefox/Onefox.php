@@ -23,6 +23,7 @@ define('VENDOR_PATH', dirname(__DIR__) . DS . 'vendor'); //定义composer vendor
 !defined('DEFAULT_MODULE') && define('DEFAULT_MODULE', 'index');//默认执行模块
 !defined('DEFAULT_CONTROLLER') && define('DEFAULT_CONTROLLER', 'Index');//默认执行控制器
 !defined('DEFAULT_ACTION') && define('DEFAULT_ACTION', 'index');//默认执行方法
+!defined('DEFAULT_TIMEZONE') && define('DEFAULT_TIMEZONE', 'Asia/Shanghai');//默认时区
 !defined('XSS_MODE') && define('XSS_MODE', true);//开启XSS过滤
 !defined('ADDSLASHES_MODE') && define('ADDSLASHES_MODE', false);//不使用addslashes
 if (version_compare(PHP_VERSION, '5.4.0', '<')) {
@@ -42,7 +43,7 @@ final class Onefox {
 
     public static function start() {
         //--------设置时区--------//
-        date_default_timezone_set("PRC");
+        date_default_timezone_set(DEFAULT_TIMEZONE);
 
         //--------设置错误级别, 记录程序开始时间及内存--------//
         if (DEBUG) {
