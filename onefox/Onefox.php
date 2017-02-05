@@ -7,7 +7,7 @@
 
 namespace onefox;
 
-define('ONEFOX_VERSION', '2.0.0');
+define('ONEFOX_VERSION', '2.1.0');
 define('REQUEST_ID', uniqid());
 define('IS_CLI', PHP_SAPI == 'cli' ? true : false);
 !defined('APP_PATH') && die('APP_PATH is not defined');
