@@ -10,7 +10,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'loader.php';
 class Test {
 
     public function run() {
-        echo \Service\Service::test(). PHP_EOL;
+        dumper(\onefox\C::genRandomKey(16, false));
     }
 }
 
