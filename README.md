@@ -137,6 +137,18 @@ project  WEB部署目录（或者子目录）
 
 框架自动识别composer中的vendor目录, 请在composer.json中引入你要使用的类库。
 
+安装请使用下面命令
+
+```
+curl -sS https://getcomposer.org/installer | php
+```
+
+或
+
+```
+php -r "readfile('https://getcomposer.org/installer');" | php
+```
+
 [composer具体用法](http://docs.phpcomposer.com/)
 
 ## 详细文档
