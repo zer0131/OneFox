@@ -20,6 +20,8 @@ define('VENDOR_PATH', dirname(__DIR__) . DS . 'vendor'); //定义composer vendor
 !defined('CONF_PATH') && define('CONF_PATH', APP_PATH . DS . 'config');//配置目录
 !defined('TPL_PATH') && define('TPL_PATH', APP_PATH . DS . 'tpl');//模板目录
 !defined('LIB_PATH') && define('LIB_PATH', APP_PATH . DS . 'lib');//扩展类库目录
+!defined('FUNC_PATH') && define('FUNC_PATH', APP_PATH . DS . 'function');//自定义函数库目录
+!defined('FUNC_NAME') && define('FUNC_NAME', 'func.php');//自定义函数库文件名
 !defined('DEFAULT_MODULE') && define('DEFAULT_MODULE', 'index');//默认执行模块
 !defined('DEFAULT_CONTROLLER') && define('DEFAULT_CONTROLLER', 'Index');//默认执行控制器
 !defined('DEFAULT_ACTION') && define('DEFAULT_ACTION', 'index');//默认执行方法
@@ -32,6 +34,8 @@ if (version_compare(PHP_VERSION, '5.4.0', '<')) {
 } else {
     define('MAGIC_QUOTES_GPC', false);
 }
+
+//引入框架函数库
 require_once __DIR__ . DS . 'functions.php';
 
 final class Onefox {
@@ -80,6 +84,11 @@ final class Onefox {
         //--------引入composer机制--------//
         if (is_dir(VENDOR_PATH) && is_file(VENDOR_PATH . DS . 'autoload.php')) {
             require VENDOR_PATH . DS . 'autoload.php';
+        }
+
+        //--------引入自定义的函数库--------//
+        if (is_dir(FUNC_PATH) && is_file(FUNC_PATH . DS . FUNC_NAME)) {
+            require_once FUNC_PATH . DS . FUNC_NAME;
         }
 
         //--------session设置--------//
