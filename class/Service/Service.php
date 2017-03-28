@@ -17,6 +17,6 @@ class Service {
     public static function composerTest() {
         // 请使用composer引入"symfony/var-dumper"后使用
         $test = new Test();
-        dump($test);
+        dumper($test);
     }
 }

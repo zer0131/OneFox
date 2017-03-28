@@ -33,7 +33,7 @@ define('CONF_PATH', APP_PATH . DS . 'config');
 //--------模板目录(默认在app/tpl目录下)--------//
 define('TPL_PATH', APP_PATH . DS . 'tpl');
 
-//--------扩展库目录(默认在app/lib目录下)--------//
+//--------扩展库目录(默认在class目录下)--------//
 define('LIB_PATH', dirname(APP_PATH) . DS . 'class');
 
 require ONEFOX_PATH . DS . 'Onefox.php';
