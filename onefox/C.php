@@ -30,33 +30,6 @@ class C {
     }
 
     /**
-     * 输出日志
-     * @param string|array $msg
-     * @param string $level
-     * @param string $config
-     * @return bool
-     */
-    public static function log($msg, $level = 'info', $config = 'default') {
-        return Log::instance($config)->save($msg, $level);
-    }
-    
-    public static function logInfo($msg) {
-        self::log($msg, Log::INFO);
-    }
-
-    public static function logError($msg) {
-        self::log($msg, Log::ERROR);
-    }
-
-    public static function logWarning($msg) {
-        self::log($msg, Log::WARNING);
-    }
-
-    public static function logNotice($msg) {
-        self::log($msg, Log::NOTICE);
-    }
-
-    /**
      * 迭代创建目录
      * @param string $path
      * @param int $mode

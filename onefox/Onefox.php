@@ -7,7 +7,7 @@
 
 namespace onefox;
 
-define('ONEFOX_VERSION', '2.1.0');
+define('ONEFOX_VERSION', '2.1.1');
 define('REQUEST_ID', uniqid());
 define('IS_CLI', PHP_SAPI == 'cli' ? true : false);
 !defined('APP_PATH') && die('APP_PATH is not defined');
@@ -167,7 +167,7 @@ final class Onefox {
             'cookie' => Request::cookies(),
             'ip' => Request::ip(),
         );
-        C::log($log);
+        Log::info($log);
         if (!class_exists($className)) {
             throw new \RuntimeException('类不存在');
         }
@@ -230,7 +230,7 @@ final class Onefox {
             $log['response'] = Response::getResponseData();
             $log['response_type'] = Response::getResponseType();
         }
-        C::log($log);
+        Log::info($log);
     }
 
     private static function _halt($e) {
@@ -240,11 +240,11 @@ final class Onefox {
             }
             include_once ONEFOX_PATH . DS . 'tpl' . DS . 'excetion.html';
         } else {
-            $log_info['url'] = $_SERVER['REQUEST_URI'];
-            $log_info['errmsg'] = $e->getMessage();
-            $log_info['file'] = $e->getFile();
-            $log_info['line'] = $e->getLine();
-            C::log($log_info, Log::ERROR);//记录错误日志
+            $logError['url'] = $_SERVER['REQUEST_URI'];
+            $logError['errmsg'] = $e->getMessage();
+            $logError['file'] = $e->getFile();
+            $logError['line'] = $e->getLine();
+            Log::error($logError);
             if (IS_CLI) {
                 exit();
             }

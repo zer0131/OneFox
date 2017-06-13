@@ -24,14 +24,16 @@ final class Log {
     private static $_instance = null;
     //默认配置
     private $_config = array(
-        'ext' => 'log',//日志文件类型
+        'ext' => '.log',//日志文件类型
         'date_format' => 'Y-m-d H:i:s',//日期格式
         'filename' => '',//日志文件名
         'log_path' => '',//日志路径
-        'prefix' => '',//日志文件名前缀
+        'prefix' => 'onefox_',//日志文件名前缀
         'log_level' => 'info',//日志输出级别
         'log_seperator' => '|',//日志输出内容分隔符
-        'log_kv_seperator' => '='//日志内容中的键值分隔符
+        'log_kv_seperator' => '=',//日志内容中的键值分隔符
+        'log_error_ext' => '.wf',//错误日志输出后缀
+        'log_debug_ext' => '.dt',//调试日志输出后缀
     );
     //日志文件
     private $_logFile = '';
@@ -50,7 +52,7 @@ final class Log {
     /**
      * 实例化类
      * @param string $confStr 配置
-     * @return Log
+     * @return object
      */
     public static function instance($confStr = 'default') {
         if (!self::$_instance) {
@@ -62,14 +64,19 @@ final class Log {
 
     //单例模式
     private function __construct($confStr) {
-        $config = Config::get('log.' . $confStr);
-        if ($config) {
-            $this->_config = array_merge($this->_config, $config);
-        }
+        $this->setConfig($confStr);
         $this->_setLogFile();
         if (file_exists($this->_logFile) && !is_writable($this->_logFile)) {
             throw new \RuntimeException('没有文件写入权限');
         }
+    }
+
+    /**
+     * @param string $confStr 配置
+     */
+    public function setConfig($confStr = 'default') {
+        $config = Config::get('log.' . $confStr);
+        $config && $this->_config = array_merge($this->_config, $config);
     }
 
     /**
@@ -86,6 +93,12 @@ final class Log {
         if ($this->_logLevels[$this->_config['log_level']] < $this->_logLevels[$level]) {
             return false;
         }
+        //处理日志输出文件
+        if ($this->_logLevels[$level] < $this->_logLevels[self::NOTICE]) {
+            $this->_logFile .= $this->_config['log_error_ext'];
+        } elseif ($this->_logLevels[$level] == $this->_logLevels[self::DEBUG]) {
+            $this->_logFile .= $this->_config['log_debug_ext'];
+        }
         if (!is_array($msg)) {
             $msg = array(self::LOG_DEFAULT_KEYWORD => $msg);
         }
@@ -98,6 +111,51 @@ final class Log {
         }
         $content .= PHP_EOL;
         return file_put_contents($this->_logFile, $content, FILE_APPEND);
+    }
+
+    /**
+     * @param $msg
+     * @param string|array $config
+     * @return mixed
+     */
+    public static function debug($msg, $config = 'default') {
+        return self::instance($config)->save($msg, self::DEBUG);
+    }
+
+    /**
+     * @param $msg
+     * @param string|array $config
+     * @return mixed
+     */
+    public static function info($msg, $config = 'default') {
+        return self::instance($config)->save($msg, self::INFO);
+    }
+
+    /**
+     * @param $msg
+     * @param string|array $config
+     * @return mixed
+     */
+    public static function notice($msg, $config = 'default') {
+        return self::instance($config)->save($msg, self::NOTICE);
+    }
+
+    /**
+     * @param $msg
+     * @param string|array $config
+     * @return mixed
+     */
+    public static function warning($msg, $config = 'default') {
+        return self::instance($config)->save($msg, self::WARNING);
+    }
+
+    /**
+     * @param $msg
+     * @param string|array $config
+     * @return mixed
+     */
+    public static function error($msg, $config = 'default') {
+        return self::instance($config)->save($msg, self::ERROR);
     }
 
     /**
@@ -124,10 +182,10 @@ final class Log {
             if (strpos($this->_config['filename'], '.log') !== false || strpos($this->_config['filename'], '.txt') !== false) {
                 $this->_logFile = $log_dir . DS . $this->_config['filename'];
             } else {
-                $this->_logFile = $log_dir . DS . $this->_config['filename'] . '.' . $this->_config['ext'];
+                $this->_logFile = $log_dir . DS . $this->_config['filename'] . $this->_config['ext'];
             }
         } else {
-            $this->_logFile = $log_dir . DS . $this->_config['prefix'] . date('YmdH') . '.' . $this->_config['ext'];
+            $this->_logFile = $log_dir . DS . $this->_config['prefix'] . date('YmdH') . $this->_config['ext'];
         }
     }
 

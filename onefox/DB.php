@@ -43,7 +43,7 @@ class DB {
         if (!empty($sql)) {
             $msg['raw sql'] = $sql;
         }
-        C::log($msg, Log::ERROR);
+        Log::error($msg);
         throw new \RuntimeException($message);
     }
 
@@ -129,7 +129,7 @@ class DB {
             'params' => is_array($params) ? json_encode($params) : $params,
             'data' => is_array($res) ? json_encode($res) : $res
         );
-        C::log($log);
+        Log::info($log);
         return $res;
     }
 
@@ -158,7 +158,7 @@ class DB {
             'params' => is_array($params) ? json_encode($params) : $params,
             'data' => is_array($column) ? json_encode($column) : $column
         );
-        C::log($log);
+        Log::info($log);
         return $column;
     }
 
@@ -178,7 +178,7 @@ class DB {
             'params' => is_array($params) ? json_encode($params) : $params,
             'data' => is_array($res) ? json_encode($res) : $res
         );
-        C::log($log);
+        Log::info($log);
         return $res;
     }
 
@@ -197,7 +197,7 @@ class DB {
             'params' => is_array($params) ? json_encode($params) : $params,
             'data' => is_array($res) ? json_encode($res) : $res
         );
-        C::log($log);
+        Log::info($log);
         return $res;
     }
 
