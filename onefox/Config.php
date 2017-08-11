@@ -9,14 +9,14 @@ namespace onefox;
 
 class Config {
 
-    private static $_config = array();
+    private static $_config = [];
 
     /**
      * 获取配置文件,支持二级点操作
      * 操作示例：Config::get('config.test')
      * @param string $name
      * @param string $default
-     * @return type
+     * @return mixed
      */
     public static function get($name, $default = null) {
         if (!$name) {
@@ -36,7 +36,7 @@ class Config {
     /**
      * 设置配置项
      * @param string $name
-     * @param type $value
+     * @param mixed $value
      */
     public static function set($name, $value = null) {
         self::$_config[$name] = $value;

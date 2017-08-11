@@ -5,31 +5,31 @@
  * @desc: 数据库配置文件
  */
 
-$online = array(
-    'default' => array(
+$online = [
+    'default' => [
         'host' => '127.0.0.1',
         'user' => 'root',
         'port' => 3306,
         'password' => '',
         'dbname' => 'test'
-    )
-);
+    ]
+];
 
-$dev = array(
-    'default' => array(
+$dev = [
+    'default' => [
         'host' => 'localhost',
         'user' => 'root',
         'port' => 3306,
         'password' => '',
         'dbname' => 'test'
-    ),
-    'test' => array(
+    ],
+    'test' => [
         'host' => 'localhost',
         'user' => 'root',
         'port' => 3306,
         'password' => '',
         'dbname' => 'test'
-    )
-);
+    ]
+];
 
 return DEBUG ? $dev : $online;

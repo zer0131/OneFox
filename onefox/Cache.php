@@ -9,7 +9,7 @@ namespace onefox;
 
 abstract class Cache {
     protected static $instance;
-    protected $options = array();
+    protected $options = [];
 
     public static function getInstance($type = '') {
         if (!self::$instance) {

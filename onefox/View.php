@@ -9,7 +9,7 @@ namespace onefox;
 
 class View extends Base {
 
-    protected $tplVal = array();
+    protected $tplVal = [];
     protected $ext = '';
 
     public function __construct($ext = '') {
@@ -23,6 +23,8 @@ class View extends Base {
     /**
      * 模板赋值
      * 传入数组则为批量赋值
+     * @param array|string $name
+     * @param string $value
      */
     public function assign($name, $value = '') {
         if (is_array($name)) {
@@ -34,6 +36,7 @@ class View extends Base {
 
     /**
      * 输出模板
+     * @param string $tplFile
      */
     public function render($tplFile = '') {
         $content = $this->_getFetch($tplFile, $this->tplVal);
@@ -41,10 +44,10 @@ class View extends Base {
         header('Cache-control: private');  // 页面缓存控制
         header('X-Powered-By: OneFox');
         header('SN: ' . REQUEST_ID);
-        Response::setResponseData(array(
+        Response::setResponseData([
             'template' => $this->_parsePath($tplFile),
             'template_value' => $this->tplVal
-        ));
+        ]);
         Response::setResponseType('text/html');
         echo $content;
     }
@@ -53,9 +56,7 @@ class View extends Base {
         return $this->_getFetch($tplFile, $this->tplVal);
     }
 
-    /**
-     * 获取模板内容
-     */
+    //获取模板内容
     private function _getFetch($tplFile, $data) {
         $tplFile = $this->_parsePath($tplFile);
         if (!is_file($tplFile)) {
@@ -71,9 +72,11 @@ class View extends Base {
 
     /**
      * 用于包含模板
-     * 示例：$this->import('header', array('title'=>'xxxx'));
+     * 示例：$this->import('header', ['title'=>'xxxx']);
+     * @param string $path
+     * @param array $newVal
      */
-    public function import($path, $newVal = array()) {
+    public function import($path, $newVal = []) {
         if (!$path) {
             throw new \RuntimeException('模板路径不正确');
         }
@@ -83,6 +86,8 @@ class View extends Base {
 
     /**
      * 解析模板路径
+     * @param string $path
+     * @return string
      */
     private function _parsePath($path) {
         if (is_file($path)) {

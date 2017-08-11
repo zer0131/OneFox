@@ -5,37 +5,37 @@
  * @desc: 缓存配置
  */
 
-$common = array(
+$common = [
     'type' => 'redis', //file, memcache, memcached, redis四种缓存方式
-    'file' => array(
+    'file' => [
         'path' => APP_PATH . DS . 'cache',
         'expire' => 0,
         'prefix' => 'onefox_'
-    ),
-    'memcache' => array(
+    ],
+    'memcache' => [
         'expire' => 0,
         'prefix' => 'onefox_',
-        'servers' => array(
-            array(
+        'servers' => [
+            [
                 'host' => '127.0.0.1',
                 'port' => 11211,
                 'persistent' => false,
                 'weight' => 10
-            ),
-        )
-    ),
-    'redis' => array(
+            ],
+        ]
+    ],
+    'redis' => [
         'expire' => 0,
         'prefix' => 'onefox_',
-        'server' => array(
+        'server' => [
             'host' => '127.0.0.1',
             'port' => 6379
-        )
-    )
-);
+        ]
+    ]
+];
 
-$online = array();
+$online = [];
 
-$dev = array();
+$dev = [];
 
 return DEBUG ? array_merge($common, $dev) : array_merge($common, $online);

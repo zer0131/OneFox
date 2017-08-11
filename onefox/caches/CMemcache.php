@@ -20,18 +20,18 @@ class CMemcache extends Cache {
         }
         $this->options = Config::get('cache.memcache');
         if (!$this->options) {
-            $this->options = array(
+            $this->options = [
                 'expire' => 0,
                 'prefix' => 'onefox_',
-                'servers' => array(
-                    array(
+                'servers' => [
+                    [
                         'host' => '127.0.0.1',
                         'port' => 11211,
                         'persistent' => false,
                         'weight' => 100
-                    ),
-                )
-            );
+                    ],
+                ]
+            ];
         }
         $this->_connect();
     }
@@ -78,10 +78,10 @@ class CMemcache extends Cache {
         if (!$this->_memcache) {
             $this->_connect();
         }
-        $res = call_user_func_array(array(
+        $res = call_user_func_array([
             $this->_memcache,
             $funcName
-        ), $arguments);
+        ], $arguments);
         return $res;
     }
 

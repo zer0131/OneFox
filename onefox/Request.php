@@ -12,9 +12,9 @@ use RuntimeException;
 class Request {
 
     private static $_hasInit = false;
-    private static $_getData = array();
-    private static $_postData = array();
-    private static $_cookieData = array();
+    private static $_getData = [];
+    private static $_postData = [];
+    private static $_cookieData = [];
 
     /**
      * 处理GET,POST,COOKIE的参数值
@@ -103,7 +103,7 @@ class Request {
      * @param string $type (get/post)
      * @return boolean
      */
-    public static function setParams($data, $type = 'get') {
+    public static function setParams(array $data, $type = 'get') {
         self::_checkDeal();
         if (!is_array($data)) {
             return false;
@@ -179,13 +179,13 @@ class Request {
         }
         //IP地址合法验证
         $long = sprintf("%u", ip2long($ip));
-        $ip = $long ? array(
+        $ip = $long ? [
             $ip,
             $long
-        ) : array(
+        ] : [
             '0.0.0.0',
             0
-        );
+        ];
         return $ip[$type];
     }
 
@@ -207,14 +207,14 @@ class Request {
 
     /**
      * 安全过滤数组
-     * @param array $data
+     * @param array|string $data
      * @return array
      */
     public static function filterArray($data) {
         if (!is_array($data)) {
             return self::filterText($data);
         }
-        $res = array();
+        $res = [];
         foreach ($data as $key => $val) {
             $k = self::filterArray($key);
             $v = self::filterArray($val);

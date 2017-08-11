@@ -13,7 +13,7 @@ class DB {
     private $_sQuery;//statement对象
     private $_settings;//数据库设置
     private $_bConnected = false;//是否连接数据库
-    private $_parameters = array();//参数数组
+    private $_parameters = [];//参数数组
 
     public function __construct($dbConfig = '') {
         if (!$dbConfig) {
@@ -27,7 +27,7 @@ class DB {
     private function _connect() {
         $dsn = 'mysql:dbname=' . $this->_settings["dbname"] . ';host=' . $this->_settings["host"] . ';port=' . $this->_settings['port'];
         try {
-            $this->_pdo = new \PDO($dsn, $this->_settings["user"], $this->_settings["password"], array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"));
+            $this->_pdo = new \PDO($dsn, $this->_settings["user"], $this->_settings["password"], [\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"]);
             // 设置属性
             $this->_pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $this->_pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
@@ -39,7 +39,7 @@ class DB {
 
     // 错误处理
     private function _exceptionLog($message, $sql = "") {
-        $msg = array('sql_error' => $message);
+        $msg = ['sql_error' => $message];
         if (!empty($sql)) {
             $msg['raw sql'] = $sql;
         }
@@ -71,7 +71,7 @@ class DB {
             $this->_exceptionLog($e->getMessage(), $query);
         }
         //重置参数
-        $this->_parameters = array();
+        $this->_parameters = [];
     }
 
     /**
@@ -86,7 +86,7 @@ class DB {
 
     /**
      * 批量绑定参数
-     * 示例: $db_obj->bindMore(array('name'=>'ryan', 'age'=>20))
+     * 示例: $db_obj->bindMore(['name'=>'ryan', 'age'=>20])
      * @param array $parray
      */
     public function bindMore($parray) {
@@ -101,10 +101,10 @@ class DB {
     /**
      * 执行sql语句，如select, insert, update
      * 示例：
-     * select: $db_obj->query('select * from `test` where `id`=:id', array('id'=>1))
-     * delete: $db_obj->query('delete from `test` where `id`=:id', array('id'=>1))
-     * insert: $db_obj->query('insert into `test`(name,age) values(:name,:age)', array('name'=>'ryan','age'=>20))
-     * update: $db_obj->query('update `test` set name=:name where `id`=:id', array('name'=>'ryan', 'id'=>7))
+     * select: $db_obj->query('select * from `test` where `id`=:id', ['id'=>1])
+     * delete: $db_obj->query('delete from `test` where `id`=:id', ['id'=>1])
+     * insert: $db_obj->query('insert into `test`(name,age) values(:name,:age)', ['name'=>'ryan','age'=>20])
+     * update: $db_obj->query('update `test` set name=:name where `id`=:id', ['name'=>'ryan', 'id'=>7])
      * @param string $query
      * @param array $params
      * @param int $fetchmode
@@ -124,11 +124,11 @@ class DB {
         } elseif ($statement === 'insert' || $statement === 'update' || $statement === 'delete') {
             $res = $this->_sQuery->rowCount();
         }
-        $log = array(
+        $log = [
             'sql' => $query,
             'params' => is_array($params) ? json_encode($params) : $params,
             'data' => is_array($res) ? json_encode($res) : $res
-        );
+        ];
         Log::info($log);
         return $res;
     }
@@ -153,18 +153,18 @@ class DB {
         foreach ($Columns as $cells) {
             $column[] = $cells[0];
         }
-        $log = array(
+        $log = [
             'sql' => $query,
             'params' => is_array($params) ? json_encode($params) : $params,
             'data' => is_array($column) ? json_encode($column) : $column
-        );
+        ];
         Log::info($log);
         return $column;
     }
 
     /**
      * 返回一行
-     * 示例: $db_obj->row('select * from `test` where `id`=:id', array('id'=>7))
+     * 示例: $db_obj->row('select * from `test` where `id`=:id', ['id'=>7])
      * @param string $query
      * @param array $params
      * @param int $fetchmode
@@ -173,18 +173,18 @@ class DB {
     public function row($query, $params = null, $fetchmode = \PDO::FETCH_ASSOC) {
         $this->_init($query, $params);
         $res = $this->_sQuery->fetch($fetchmode);
-        $log = array(
+        $log = [
             'sql' => $query,
             'params' => is_array($params) ? json_encode($params) : $params,
             'data' => is_array($res) ? json_encode($res) : $res
-        );
+        ];
         Log::info($log);
         return $res;
     }
 
     /**
      * 返回字段值
-     * 示例: $db_obj->single('select name from `test` where `id`=:id', array('id'=>7))
+     * 示例: $db_obj->single('select name from `test` where `id`=:id', ['id'=>7])
      * 结果: ryan
      * @param string $query
      * @param array $params
@@ -192,11 +192,11 @@ class DB {
     public function single($query, $params = null) {
         $this->_init($query, $params);
         $res = $this->_sQuery->fetchColumn();
-        $log = array(
+        $log = [
             'sql' => $query,
             'params' => is_array($params) ? json_encode($params) : $params,
             'data' => is_array($res) ? json_encode($res) : $res
-        );
+        ];
         Log::info($log);
         return $res;
     }

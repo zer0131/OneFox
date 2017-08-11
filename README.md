@@ -1,7 +1,10 @@
 # OneFox
 
 ## 简介
-OneFox是一个简洁的PHP框架(**PHP版本要求5.3+**)，使用非常方便，简单阅读使用手册即可快速开发自己的网站了。而且OneFox具备以下优点：
+
+![build](https://img.shields.io/badge/build-passing-green.svg) ![PHP](https://img.shields.io/badge/PHP-5.4%2B-brightgreen.svg) ![version](https://img.shields.io/badge/version-2.2.0-red.svg) ![license](https://img.shields.io/badge/license-Apache%202-blue.svg) ![download](https://img.shields.io/badge/download-120KB-yellow.svg) ![author](https://img.shields.io/badge/author-ryan-orange.svg)
+
+OneFox是一个简洁的PHP框架(**PHP版本要求5.4+**)，使用非常方便，简单阅读使用手册即可快速开发自己的网站了。而且OneFox具备以下优点：
 * 框架核心不臃肿，加载速度快 
 * 更适合api之类的接口业务 
 * 模板不依赖模板引擎，减少学习模板语言的成本 
@@ -114,6 +117,7 @@ project  WEB部署目录（或者子目录）
 │  ├─DB.php             数据库范文类文件
 │  ├─Dispatcher.php     路由解析类文件
 │  ├─Log.php            日志类文件
+│  ├─Lock.php           基于Redis实现的锁
 │  ├─Model.php          基础Model类文件
 │  ├─Request.php        请求类文件
 │  ├─Response.php       响应类文件

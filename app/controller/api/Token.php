@@ -11,7 +11,7 @@ class Token extends Controller  {
         if (!$param) {
             $this->json(self::CODE_FAIL, 'error');
         }
-        $this->json(self::CODE_SUCCESS, 'ok', array('test'=>$param));
+        $this->json(self::CODE_SUCCESS, 'ok', ['test'=>$param]);
     }
     
 }

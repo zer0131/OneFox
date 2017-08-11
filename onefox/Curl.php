@@ -12,7 +12,7 @@ class Curl extends Base {
     const RETRY_NUM = 3;//重试次数
 
     private $_ch;
-    private $_config = array(
+    private $_config = [
         CURLOPT_HEADER => false, // 不显示header信息
         CURLOPT_RETURNTRANSFER => true, // 将获取的信息以文件流的形式返回，而不是直接输出。
         CURLOPT_FOLLOWLOCATION => true, // 使用自动跳转
@@ -22,7 +22,7 @@ class Curl extends Base {
         CURLOPT_TIMEOUT => 10,// 执行时间
         CURLOPT_CONNECTTIMEOUT => 3,//连接时间
         CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0',//请求UA
-    );
+    ];
 
     public function __construct() {
         if (!function_exists('curl_init')) {
@@ -39,7 +39,7 @@ class Curl extends Base {
      * @param array $header
      * @return mixed
      */
-    public function get($url, $params = array(), $header = array()) {
+    public function get($url, $params = [], $header = []) {
         if ($params) {
             $url .= '?' . http_build_query($params);
         }
@@ -57,7 +57,7 @@ class Curl extends Base {
      * @param bool $multi
      * @return mixed
      */
-    public function post($url, $params = array(), $header = array(), $isJson = false, $multi = false) {
+    public function post($url, $params = [], $header = [], $isJson = false, $multi = false) {
         $this->_config[CURLOPT_URL] = $url;
         $this->_config[CURLOPT_POST] = true;
         if ($params) {
@@ -81,13 +81,13 @@ class Curl extends Base {
 
     /**
      * PUT请求
-     * @param string $url
-     * @params array $params
-     * @params array $header
-     * @params bool $isJson
+     * @param $url
+     * @param array $params
+     * @param array $header
+     * @param bool $isJson
      * @return mixed
      */
-    public function put($url, $params = array(), $header = array(), $isJson = false) {
+    public function put($url, $params = [], $header = [], $isJson = false) {
         $this->_config[CURLOPT_CUSTOMREQUEST] = 'PUT';
         if ($params) {
             $this->_config[CURLOPT_POSTFIELDS] = $isJson ? json_encode($params) : http_build_query($params);
@@ -104,7 +104,7 @@ class Curl extends Base {
      * @param bool $isJson
      * @return mixed
      */
-    public function delete($url, $params = array(), $header = array(), $isJson = false) {
+    public function delete($url, $params = [], $header = [], $isJson = false) {
         $this->_config[CURLOPT_CUSTOMREQUEST] = 'DELETE';
         if ($params) {
             $this->_config[CURLOPT_POSTFIELDS] = $isJson ? json_encode($params) : http_build_query($params);
@@ -119,7 +119,7 @@ class Curl extends Base {
      * @param array $curlOpt
      * @return mixed
      */
-    public function request($url, $curlOpt = array()) {
+    public function request($url, $curlOpt = []) {
         $this->_config[CURLOPT_URL] = $url;
         if ($curlOpt && is_array($curlOpt)) {
             foreach ($curlOpt as $key => $val) {
@@ -140,7 +140,10 @@ class Curl extends Base {
      * @param int $n 记录重试次数
      * @return string|bool
      */
-    public function downloadFile($url, $saveDir = APP_PATH.DS.'download', $retry = false, $n = 1) {
+    public function downloadFile($url, $saveDir = '', $retry = false, $n = 1) {
+        if (empty($saveDir)) {
+            $saveDir = APP_PATH . DS . 'download';
+        }
         if (!is_dir($saveDir)) {
             mkdir($saveDir, 0777, true);
         }
@@ -163,7 +166,7 @@ class Curl extends Base {
 
     /**
      * 请求详细信息
-     * @params int $opt
+     * @param int $opt
      * @return mixed
      */
     public function getInfo($opt = 0) {

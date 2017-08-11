@@ -5,12 +5,12 @@
  * @desc: 默认配置文件
  */
 
-$common = array(
+$common = [
     'test' => 'ryan zhang'
-);
+];
 
-$online = array();
+$online = [];
 
-$dev = array();
+$dev = [];
 
 return DEBUG ? array_merge($common, $dev) : array_merge($common, $online);

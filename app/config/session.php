@@ -5,7 +5,7 @@
  * @desc: session设置文件
  */
 
-$common = array(
+$common = [
     'auto_start' => true,//自动开启session, 默认关闭
     'save_path' => APP_PATH . DS . 'session',//session存储路径
     /*'name' => 'PHPSESSID',//session名称
@@ -28,10 +28,10 @@ $common = array(
     'referer_check' => '',//防止带有ID的外部URL
     'hash_function' => 0,//hash方法{0:md5(128 bits),1:SHA-1(160 bits)}
     'hash_bits_per_character' => 4,//当转换二进制hash数据奥可读形式是，每个字符保留位数*/
-);
+];
 
-$online = array();
+$online = [];
 
-$dev = array();
+$dev = [];
 
 return DEBUG ? array_merge($common, $dev) : array_merge($common, $online);

@@ -9,14 +9,14 @@ namespace onefox;
 
 class Response {
 
-    private static $_cookieConfig = array(
+    private static $_cookieConfig = [
         'prefix' => '',
         'expire' => 0,
         'path' => '',
         'domain' => '',
         'secure' => false,
         'httponly' => true
-    );
+    ];
 
     private static $_resData;
     private static $_resType;
@@ -84,7 +84,7 @@ class Response {
         //参数设置处理
         if (!is_null($opt)) {
             if (is_numeric($opt)) {
-                $opt = array('expire' => $opt);//设置有效期
+                $opt = ['expire' => $opt];//设置有效期
             }
             self::$_cookieConfig = array_merge(self::$_cookieConfig, $opt);
         }
@@ -130,10 +130,10 @@ class Response {
      */
     public static function redirect($url, $time = 0, $msg = '') {
         //多行URL地址支持
-        $url = str_replace(array(
+        $url = str_replace([
             "\n",
             "\r"
-        ), '', $url);
+        ], '', $url);
         if (empty($msg))
             $msg = "系统将在{$time}秒之后自动跳转到{$url}！";
         if (!headers_sent()) {

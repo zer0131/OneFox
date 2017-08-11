@@ -28,8 +28,8 @@ abstract class Model extends Base {
 
     // 生成update sql
     protected function genUpdateSql($data, $map) {
-        $fields = array();
-        $where = array();
+        $fields = [];
+        $where = [];
         $columns = array_keys($data);
         $whereCol = array_keys($map);
         foreach ($columns as $column) {

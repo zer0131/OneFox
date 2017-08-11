@@ -74,7 +74,7 @@ class Dispatcher {
 
             //处理剩余参数
             if (count($uriArr) > 0) {
-                $params = array();
+                $params = [];
                 preg_replace_callback('/(\w+)\/([^\/]+)/', function ($match) use (&$params) {
                     $params[$match[1]] = $match[2];
                 }, implode('/', $uriArr));// 解析剩余的URL参数

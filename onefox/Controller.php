@@ -29,7 +29,7 @@ abstract class Controller {
     }
 
     // 引入模板
-    protected function import($path, $val = array()) {
+    protected function import($path, $val = []) {
         View::singleton()->import($path, $val);
     }
 
@@ -40,17 +40,17 @@ abstract class Controller {
 
     /**
      * json输出
-     * @params status int 状态码
-     * @params msg string 提示信息
-     * @params data array 返回数据
-     * @params ext array 扩展返回数据，一位数组
+     * @param int $status 状态码
+     * @param string $msg 返回信息
+     * @param null|array $data 返回数据
+     * @param null|array $ext 返回数据扩展信息
      */
     protected function json($status, $msg, $data = null, $ext = null) {
-        $res = array(
+        $res = [
             'status' => $status,
             'msg' => $msg,
             'data' => $data
-        );
+        ];
         if ($ext && is_array($ext)) {
             foreach ($ext as $k => $v) {
                 $res[$k] = $v;
@@ -61,6 +61,10 @@ abstract class Controller {
 
     /**
      * 获取GET请求参数
+     * @param $key
+     * @param string $default
+     * @param string $type
+     * @return string
      */
     protected function get($key, $default = '', $type = 'str') {
         return Request::get($key, $default, $type);
@@ -68,6 +72,10 @@ abstract class Controller {
 
     /**
      * 获取POST请求参数
+     * @param $key
+     * @param string $default
+     * @param string $type
+     * @return string
      */
     protected function post($key, $default = '', $type = 'str') {
         return Request::post($key, $default, $type);
@@ -75,6 +83,10 @@ abstract class Controller {
 
     /**
      * 获取PUT请求参数
+     * @param $key
+     * @param string $default
+     * @param string $type
+     * @return string
      */
     protected function put($key, $default = '', $type = 'str') {
         if (Request::method() !== 'put') {
@@ -91,6 +103,10 @@ abstract class Controller {
 
     /**
      * 获取DELETE请求参数
+     * @param $key
+     * @param string $default
+     * @param string $type
+     * @return string
      */
     protected function delete($key, $default = '', $type = 'str') {
         if (Request::method() !== 'delete') {
@@ -107,6 +123,10 @@ abstract class Controller {
 
     /**
      * 获取PATCH请求参数
+     * @param $key
+     * @param string $default
+     * @param string $type
+     * @return string
      */
     protected function patch($key, $default = '', $type = 'str') {
         if (Request::method() !== 'patch') {

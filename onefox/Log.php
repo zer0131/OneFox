@@ -23,7 +23,7 @@ final class Log {
 
     private static $_instance = null;
     //默认配置
-    private $_config = array(
+    private $_config = [
         'ext' => '.log',//日志文件类型
         'date_format' => 'Y-m-d H:i:s',//日期格式
         'filename' => '',//日志文件名
@@ -34,11 +34,11 @@ final class Log {
         'log_kv_seperator' => '=',//日志内容中的键值分隔符
         'log_error_ext' => '.wf',//错误日志输出后缀
         'log_debug_ext' => '.dt',//调试日志输出后缀
-    );
+    ];
     //日志文件
     private $_logFile = '';
     //日志级别
-    private $_logLevels = array(
+    private $_logLevels = [
         'emergency' => 0,
         'alert' => 1,
         'critical' => 2,
@@ -47,7 +47,7 @@ final class Log {
         'notice' => 5,
         'info' => 6,
         'debug' => 7
-    );
+    ];
 
     /**
      * 实例化类

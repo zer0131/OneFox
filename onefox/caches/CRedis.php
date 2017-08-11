@@ -20,14 +20,14 @@ class CRedis extends Cache {
         }
         $this->options = Config::get('cache.redis');
         if (!$this->options) {
-            $this->options = array(
+            $this->options = [
                 'expire' => 0,
                 'prefix' => 'onefox_',
-                'server' => array(
+                'server' => [
                     'host' => '127.0.0.1',
                     'port' => 6379
-                )
-            );
+                ]
+            ];
         }
         $this->_connect();
     }
@@ -76,10 +76,10 @@ class CRedis extends Cache {
         if (!$this->_redis) {
             $this->_connect();
         }
-        $res = call_user_func_array(array(
+        $res = call_user_func_array([
             $this->_redis,
             $funcName
-        ), $arguments);
+        ], $arguments);
         return $res;
     }
 

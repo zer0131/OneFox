@@ -62,7 +62,7 @@ class Crypt {
         $result = '';
         $box = range(0, 255);
 
-        $rndkey = array();
+        $rndkey = [];
         for ($i = 0; $i <= 255; $i++) {
             $rndkey[$i] = ord($cryptkey[$i % $keyLength]);
         }

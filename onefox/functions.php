@@ -39,7 +39,7 @@ if (!function_exists('session')) {
         if ('' === $value) {
             if (is_null($name)) {
                 // 清除所有session
-                $_SESSION = array();
+                $_SESSION = [];
             } else {
                 // 读取session
                 return isset($_SESSION[$name]) ? unserialize(base64_decode($_SESSION[$name])) : null;

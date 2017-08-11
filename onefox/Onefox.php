@@ -7,7 +7,11 @@
 
 namespace onefox;
 
-define('ONEFOX_VERSION', '2.1.1');
+if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+    die('The PHP version is too low');
+}
+
+define('ONEFOX_VERSION', '2.2.0');
 define('REQUEST_ID', uniqid());
 define('IS_CLI', PHP_SAPI == 'cli' ? true : false);
 !defined('APP_PATH') && die('APP_PATH is not defined');
@@ -28,12 +32,6 @@ define('VENDOR_PATH', dirname(__DIR__) . DS . 'vendor'); //定义composer vendor
 !defined('DEFAULT_TIMEZONE') && define('DEFAULT_TIMEZONE', 'Asia/Shanghai');//默认时区
 !defined('XSS_MODE') && define('XSS_MODE', true);//开启XSS过滤
 !defined('ADDSLASHES_MODE') && define('ADDSLASHES_MODE', false);//不使用addslashes
-if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-    ini_set('magic_quotes_runtime', 0);
-    define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc() ? true : false);
-} else {
-    define('MAGIC_QUOTES_GPC', false);
-}
 
 //引入框架函数库
 require_once __DIR__ . DS . 'functions.php';
@@ -58,28 +56,28 @@ final class Onefox {
         }
 
         //--------自动注册类--------//
-        spl_autoload_register(array(
+        spl_autoload_register([
             'OneFox\Onefox',
             'autoload'
-        ));
+        ]);
 
         //--------运行结束执行--------//
-        register_shutdown_function(array(
+        register_shutdown_function([
             'OneFox\Onefox',
             'end'
-        ));
+        ]);
 
         //--------自定义错误处理--------//
-        set_error_handler(array(
+        set_error_handler([
             'OneFox\Onefox',
             'errorHandler'
-        ));
+        ]);
 
         //--------处理未捕捉的异常--------//
-        set_exception_handler(array(
+        set_exception_handler([
             'OneFox\Onefox',
             'exceptionHandler'
-        ));
+        ]);
 
         //--------引入composer机制--------//
         if (is_dir(VENDOR_PATH) && is_file(VENDOR_PATH . DS . 'autoload.php')) {
@@ -152,21 +150,21 @@ final class Onefox {
             $className = sprintf("controller\\%s", $controllerName);
         }
         //-----请求日志------//
-        $params = array();
-        $log = array(
+        $params = [];
+        $log = [
             'request_id' => REQUEST_ID,
             'uri' => $_SERVER['REQUEST_URI'],
-            'class' => array(
+            'class' => [
                 'module' => CURRENT_MODULE,
                 'controller' => CURRENT_CONTROLLER,
                 'action' => CURRENT_ACTION
-            ),
+            ],
             'method' => Request::method(),
             'params' => array_merge($params, Request::gets(), Request::posts()),
             'stream' => Request::stream(),
             'cookie' => Request::cookies(),
             'ip' => Request::ip(),
-        );
+        ];
         Log::info($log);
         if (!class_exists($className)) {
             throw new \RuntimeException('类不存在');
@@ -220,12 +218,12 @@ final class Onefox {
             self::_halt($e);
         }
         //输出日志
-        $log = array(
+        $log = [
             'request_id' => REQUEST_ID,
             'run_type' => IS_CLI ? 'cli' : 'web',
             'run_time' => number_format((microtime(true) - self::$_startTime) * 1000, 0) . 'ms',
             'run_memory' => number_format((memory_get_usage(true) - self::$_memoryStart) / (1024), 0, ",", ".") . 'kb'
-        );
+        ];
         if (!IS_CLI) {
             $log['response'] = Response::getResponseData();
             $log['response_type'] = Response::getResponseType();

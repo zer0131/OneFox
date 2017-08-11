@@ -15,11 +15,11 @@ class CFile extends Cache {
     public function __construct() {
         $this->options = Config::get('cache.file');
         if (!$this->options) {
-            $this->options = array(
+            $this->options = [
                 'path' => APP_PATH . DS . 'Cache', //缓存路径
                 'expire' => 0, //有效期，单位秒，0表示长久有效
                 'prefix' => 'onefox_'//缓存文件名前缀
-            );
+            ];
         }
         if (substr($this->options['path'], -1) != '/') {
             $this->options['path'] .= '/';

@@ -9,8 +9,6 @@ namespace onefox;
 
 class C {
 
-    //private static $_classObj = array();
-
     /**
      * @param $str
      * @param bool $onlyCharacterBase
@@ -85,8 +83,8 @@ class C {
      * @param string $html html输出前缀
      * @return array
      */
-    public static function html2Tree($list, $pid = 0, $level = 1, $html = ' -- ') {
-        $tree = array();
+    public static function html2Tree(array $list, $pid = 0, $level = 1, $html = ' -- ') {
+        $tree = [];
         foreach ($list as $v) {
             if ($v['parent_id'] == $pid) {
                 $v['sort'] = $level;
@@ -103,13 +101,13 @@ class C {
      * @param array $data
      * @return array
      */
-    public static function data2Tree($data) {
-        $items = array();
+    public static function data2Tree(array $data) {
+        $items = [];
         foreach ($data as $val) {
             $items[$val['id']] = $val;
         }
         unset($data);
-        $tree = array();
+        $tree = [];
         foreach ($items as $item) {
             if (isset($items[$item['parent_id']])) {
                 $items[$item['parent_id']]['son'][] = &$items[$item['id']];
@@ -149,12 +147,12 @@ class C {
         if ($returnStr) {
             return $daysStr . $hoursStr . $minsStr . $secsStr;
         }
-        return array(
+        return [
             "day" => $days,
             "hour" => $hours,
             "min" => $mins,
             "sec" => $secs
-        );
+        ];
     }
 
 
@@ -164,7 +162,7 @@ class C {
      * @param string $signKey
      * @return string
      */
-    public static function sign($p, $signKey = '2#!&70op#e') {
+    public static function sign(array $p, $signKey = '2#!&70op#e') {
         $signStr = '';
         unset($p['sign']);
         if (is_array($p) && !empty($p) && ksort($p)) {
@@ -208,7 +206,7 @@ class C {
      */
     public static function xmlEncode($data, $root = 'onefox', $item = 'item', $attr = '', $id = 'id', $encoding = 'utf-8') {
         if (is_array($attr)) {
-            $_attr = array();
+            $_attr = [];
             foreach ($attr as $key => $value) {
                 $_attr[] = "{$key}=\"{$value}\"";
             }
@@ -246,13 +244,13 @@ class C {
 
     /**
      * 数据库查询结果排序
-     * 使用方法: C::sortDbRet($data, array('column_name'=>SORT_ASC));
+     * 使用方法: C::sortDbRet($data, ['column_name'=>SORT_ASC]);
      * @param $data
      * @param $columns
      * @return mixed
      */
     public static function sortDbRet($data, $columns) {
-        $args = array();
+        $args = [];
         foreach ($columns as $k => $v) {
             $args[] = array_column($data, $k);
             $args[] = $v;
@@ -269,7 +267,7 @@ class C {
      * @param string $fileName
      * @param bool $isWin
      */
-    public static function exportToCSV($header, $data, $fileName, $isWin = true) {
+    public static function exportToCSV(array $header, array $data, $fileName, $isWin = true) {
         set_time_limit(0);
         ini_set('memory_limit', '256M');
         $fileName = $fileName . '-' . date('YmdHis') . '.csv';
@@ -298,7 +296,7 @@ class C {
                 flush();
                 $cnt = 0;
             }
-            $row = array();
+            $row = [];
             foreach ($val as $i => $v) {
                 $row[] = $isWin ? iconv('utf-8', 'gb2312', $v) : $v;
             }
