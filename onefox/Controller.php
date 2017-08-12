@@ -11,6 +11,8 @@ abstract class Controller {
     const CODE_SUCCESS = 0;
     const CODE_FAIL = 1;
 
+    public $actions = [];
+
     public function __construct() {
         //此方法可初始化控制器
         if (method_exists($this, '_init')) {
@@ -40,15 +42,15 @@ abstract class Controller {
 
     /**
      * json输出
-     * @param int $status 状态码
-     * @param string $msg 返回信息
+     * @param int $errno 状态码
+     * @param string $errmsg 返回信息
      * @param null|array $data 返回数据
      * @param null|array $ext 返回数据扩展信息
      */
-    protected function json($status, $msg, $data = null, $ext = null) {
+    protected function json($errno, $errmsg, $data = null, $ext = null) {
         $res = [
-            'status' => $status,
-            'msg' => $msg,
+            'errno' => $errno,
+            'errmsg' => $errmsg,
             'data' => $data
         ];
         if ($ext && is_array($ext)) {
