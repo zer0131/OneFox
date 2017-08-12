@@ -5,10 +5,6 @@
  * @desc 统一入口
  */
 
-if (version_compare(PHP_VERSION, '5.3.0', '<')) {
-    die('require PHP > 5.3.0 !');
-}
-
 //--------定义目录分隔符--------//
 define('DS', DIRECTORY_SEPARATOR);
 
