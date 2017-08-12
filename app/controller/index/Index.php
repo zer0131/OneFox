@@ -11,16 +11,16 @@ use lib\Test\Test;
 use Service\Service;
 
 class Index extends Base {
+
+    public $actions = [
+        'test' => 'actions\\index\\Test',
+    ];
     
     /**
      * 默认方法
      */
     public function indexAction(){
 		$this->show();
-    }
-
-    public function testAction() {
-        Test::test();
     }
 
     public function serviceAction() {

@@ -88,6 +88,7 @@ project  WEB部署目录（或者子目录）
 应用目录结构
 ```
 ├─app 
+│  ├─actions        action目录
 │  ├─cache        缓存目录
 │  ├─config       配置目录
 │  ├─controller   controller目录

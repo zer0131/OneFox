@@ -8,7 +8,7 @@
 namespace onefox;
 
 if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-    die('The PHP version is too low');
+    die('Require PHP > 5.4.0 !');
 }
 
 define('ONEFOX_VERSION', '2.2.0');
@@ -178,24 +178,38 @@ final class Onefox {
 
             $class = $obj->newInstance();
 
-            //前置操作
-            if ($obj->hasMethod(CURRENT_ACTION . 'Before')) {
-                $beforeMethod = $obj->getMethod(CURRENT_ACTION . 'Before');
-                if ($beforeMethod->isPublic() && !$beforeMethod->isStatic()) {
-                    $beforeMethod->invoke($class);
+            //actions
+            $property = $obj->getProperty('actions');
+            $actions = $property->getValue($class);
+            if (isset($actions[CURRENT_ACTION]) && !empty($actions[CURRENT_ACTION])) {
+                $actionObj = new \ReflectionClass($actions[CURRENT_ACTION]);
+                $actionClass = $actionObj->newInstance();
+                if ($actionObj->hasMethod('excute')){
+                    $execMethodObj = $actionObj->getMethod('excute');
+                    if ($execMethodObj->isPublic() && !$execMethodObj->isStatic()) {
+                        $execMethodObj->invoke($actionClass);
+                    }
                 }
-            }
+            } else {
+                //前置操作
+                if ($obj->hasMethod(CURRENT_ACTION . 'Before')) {
+                    $beforeMethod = $obj->getMethod(CURRENT_ACTION . 'Before');
+                    if ($beforeMethod->isPublic() && !$beforeMethod->isStatic()) {
+                        $beforeMethod->invoke($class);
+                    }
+                }
 
-            $method = $obj->getMethod(CURRENT_ACTION . 'Action');
-            if ($method->isPublic() && !$method->isStatic()) {
-                $method->invoke($class);
-            }
+                $method = $obj->getMethod(CURRENT_ACTION . 'Action');
+                if ($method->isPublic() && !$method->isStatic()) {
+                    $method->invoke($class);
+                }
 
-            //后置操作
-            if ($obj->hasMethod(CURRENT_ACTION . 'After')) {
-                $afterMethod = $obj->getMethod(CURRENT_ACTION . 'After');
-                if ($afterMethod->isPublic() && !$afterMethod->isStatic()) {
-                    $afterMethod->invoke($class);
+                //后置操作
+                if ($obj->hasMethod(CURRENT_ACTION . 'After')) {
+                    $afterMethod = $obj->getMethod(CURRENT_ACTION . 'After');
+                    if ($afterMethod->isPublic() && !$afterMethod->isStatic()) {
+                        $afterMethod->invoke($class);
+                    }
                 }
             }
         } catch (\Exception $e) {
