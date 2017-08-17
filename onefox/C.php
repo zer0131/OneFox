@@ -305,5 +305,34 @@ class C {
         fclose($fp);
         exit;
     }
+
+    /**
+     * 执行事务，$func为要执行的函数，失败返回false
+     * @param callable $func
+     * @param DB $db
+     * @param array $args
+     * @return bool
+     */
+    final public static function withTransaction(callable $func, DB $db, $args = []) {
+        if ($db->beginTransaction() === false) {
+            Log::warning('Start transaction failed');
+            return false;
+        }
+        try {
+            $ret = call_user_func_array($func, $args);
+            if ($ret === false) {
+                throw new \Exception('Transaction procedure return false');
+            }
+            if ($db->executeTransaction() === false) {
+                throw new \Exception('Commit transaction failed');
+            }
+            return true;
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            Log::warning("Rollback transaction {$message}");
+            $db->rollBack();
+            return false;
+        }
+    }
 }
 
