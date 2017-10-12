@@ -7,9 +7,9 @@
 
 namespace onefox\encrypt;
 
-class Crypt {
+class Encryption {
 
-    const CRYPT_KEY = '8Wm^Yi/h}s';
+    const ENCRYPT_KEY = '8Wm^Yi/h}s';
 
     /**
      * 加密
@@ -18,7 +18,7 @@ class Crypt {
      * @return string 加密后的加密字串
      */
     public static function encode($str, $expiry = 0) {
-        return self::_cryptCode($str, "encode", $expiry);
+        return self::_encryptCode($str, "encode", $expiry);
     }
 
     /**
@@ -27,7 +27,7 @@ class Crypt {
      * @return string 解密后的字串
      */
     public static function decode($str) {
-        return self::_cryptCode($str, "decode");
+        return self::_encryptCode($str, "decode");
     }
 
     /**
@@ -38,9 +38,9 @@ class Crypt {
      * @param  string $defaultKey 关键密钥
      * @return string 加密或解密串
      */
-    private static function _cryptCode($str, $operation = "decode", $expiry = 0, $defaultKey = '') {
+    private static function _encryptCode($str, $operation = "decode", $expiry = 0, $defaultKey = '') {
         if (empty($defaultKey)) {
-            $defaultKey = self::CRYPT_KEY;
+            $defaultKey = self::ENCRYPT_KEY;
         }
         $ckeyLength = 4;
         $key = md5($defaultKey);
