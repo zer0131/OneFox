@@ -109,7 +109,6 @@ project  WEB部署目录（或者子目录）
 ├─onefox
 │  ├─caches             缓存类目录
 │  ├─tpl                系统模板目录
-│  ├─encrypt            加密类目录
 │  ├─C.php              公共函数文件
 │  ├─Cache.php          缓存抽象文件
 │  ├─Config.php         配置类文件

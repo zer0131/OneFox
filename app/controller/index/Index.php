@@ -8,7 +8,6 @@ namespace controller\index;
 
 use controller\Base;
 use lib\Test\Test;
-use Service\Service;
 
 class Index extends Base {
 
@@ -24,6 +23,6 @@ class Index extends Base {
     }
 
     public function serviceAction() {
-        Service::composerTest();
+        dumper('service');
     }
 }
