@@ -23,7 +23,7 @@ define('VENDOR_PATH', dirname(__DIR__) . DS . 'vendor'); //定义composer vendor
 !defined('LOG_PATH') && define('LOG_PATH', APP_PATH . DS . 'logs');//日志目录
 !defined('CONF_PATH') && define('CONF_PATH', APP_PATH . DS . 'config');//配置目录
 !defined('TPL_PATH') && define('TPL_PATH', APP_PATH . DS . 'tpl');//模板目录
-!defined('LIB_PATH') && define('LIB_PATH', APP_PATH . DS . 'class');//扩展类库目录
+!defined('LIB_PATH') && define('LIB_PATH', APP_PATH . DS . 'extend');//扩展类库目录
 !defined('FUNC_PATH') && define('FUNC_PATH', APP_PATH . DS . 'function');//自定义函数库目录
 !defined('FUNC_NAME') && define('FUNC_NAME', 'func.php');//自定义函数库文件名
 !defined('DEFAULT_MODULE') && define('DEFAULT_MODULE', 'index');//默认执行模块

@@ -81,7 +81,7 @@ project  WEB部署目录（或者子目录）
 ├─LICENSE         LICENSE文件
 ├─README.md       README文件 
 ├─app             应用目录 
-├─class           公共类文件
+├─extend          扩展类库目录
 └─onefox          框架目录
 ```
 
@@ -109,11 +109,11 @@ project  WEB部署目录（或者子目录）
 ├─onefox
 │  ├─caches             缓存类目录
 │  ├─tpl                系统模板目录
+│  ├─encrypt            加密类目录
 │  ├─C.php              公共函数文件
 │  ├─Cache.php          缓存抽象文件
 │  ├─Config.php         配置类文件
 │  ├─Controller.php     抽象控制器文件
-│  ├─Crypt.php          加解密类文件
 │  ├─Curl.php           Curl类文件
 │  ├─DB.php             数据库范文类文件
 │  ├─Dispatcher.php     路由解析类文件
