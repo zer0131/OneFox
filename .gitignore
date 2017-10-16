@@ -104,10 +104,6 @@ nbactions.xml
 nb-configuration.xml
 
 # costom project
-doc/
-app/cache/
-app/logs/
-app/session/
 vendor/
 composer.lock
 
