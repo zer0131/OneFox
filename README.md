@@ -117,7 +117,6 @@ project  WEB部署目录（或者子目录）
 │  ├─DB.php             数据库范文类文件
 │  ├─Dispatcher.php     路由解析类文件
 │  ├─Log.php            日志类文件
-│  ├─Lock.php           基于Redis实现的锁
 │  ├─Model.php          基础Model类文件
 │  ├─Request.php        请求类文件
 │  ├─Response.php       响应类文件
