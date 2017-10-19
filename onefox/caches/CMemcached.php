@@ -16,13 +16,12 @@ class CMemcached extends Cache {
 
     public function __construct() {
         if (!extension_loaded('memcached')) {
-            throw new \RuntimeException('memcached扩展未加载');
+            throw new \RuntimeException('The memcached extension must be loaded.');
         }
         $this->options = Config::get('cache.memcache');
         if (!$this->options) {
             $this->options = [
                 'expire' => 0,
-                'prefix' => 'onefox_',
                 'servers' => [
                     [
                         'host' => '127.0.0.1',
@@ -47,7 +46,7 @@ class CMemcached extends Cache {
         if (!$this->_memcached) {
             $this->_connect();
         }
-        return $this->_memcached->get($this->options['prefix'] . $name);
+        return $this->_memcached->get($name);
     }
 
     public function set($name, $value, $expire = null) {
@@ -58,9 +57,9 @@ class CMemcached extends Cache {
             $expire = $this->options['expire'];
         }
         if (intval($expire) === 0) {
-            return $this->_memcached->set($this->options['prefix'] . $name, $value, $expire);
+            return $this->_memcached->set($name, $value, $expire);
         } else {
-            return $this->_memcached->set($this->options['prefix'] . $name, $value, time() + intval($expire));
+            return $this->_memcached->set($name, $value, time() + intval($expire));
         }
     }
 
@@ -68,7 +67,7 @@ class CMemcached extends Cache {
         if (!$this->_memcached) {
             $this->_connect();
         }
-        return $this->_memcached->delete($this->options['prefix'] . $name, $ttl);
+        return $this->_memcached->delete($name, $ttl);
     }
 
     public function clear() {
@@ -90,8 +89,8 @@ class CMemcached extends Cache {
     }
 
     public function __destruct() {
-        $this->_memcached->quit();
         if ($this->_memcached) {
+            $this->_memcached->quit();
             $this->_memcached = null;
         }
     }

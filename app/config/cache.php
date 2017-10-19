@@ -10,11 +10,10 @@ $common = [
     'file' => [
         'path' => APP_PATH . DS . 'cache',
         'expire' => 0,
-        'prefix' => 'onefox_'
+        'prefix' => 'onefox_',//文件前缀
     ],
     'memcache' => [
         'expire' => 0,
-        'prefix' => 'onefox_',
         'servers' => [
             [
                 'host' => '127.0.0.1',
@@ -26,7 +25,6 @@ $common = [
     ],
     'redis' => [
         'expire' => 0,
-        'prefix' => 'onefox_',
         'server' => [
             'host' => '127.0.0.1',
             'port' => 6379

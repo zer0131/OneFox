@@ -16,13 +16,12 @@ class CRedis extends Cache {
 
     public function __construct() {
         if (!extension_loaded('redis')) {
-            throw new \RuntimeException('redis扩展未加载');
+            throw new \RuntimeException('The redis extension must be loaded.');
         }
         $this->options = Config::get('cache.redis');
         if (!$this->options) {
             $this->options = [
                 'expire' => 0,
-                'prefix' => 'onefox_',
                 'server' => [
                     'host' => '127.0.0.1',
                     'port' => 6379
@@ -41,7 +40,7 @@ class CRedis extends Cache {
         if (!$this->_redis) {
             $this->_connect();
         }
-        return $this->_redis->get($this->options['prefix'] . $name);
+        return $this->_redis->get($name);
     }
 
     public function set($name, $value, $expire = null) {
@@ -52,9 +51,9 @@ class CRedis extends Cache {
             $expire = $this->options['expire'];
         }
         if (intval($expire) === 0) {
-            return $this->_redis->set($this->options['prefix'] . $name, $value);
+            return $this->_redis->set($name, $value);
         } else {
-            return $this->_redis->setEx($this->options['prefix'] . $name, intval($expire), $value);
+            return $this->_redis->setEx($name, intval($expire), $value);
         }
     }
 
@@ -62,7 +61,7 @@ class CRedis extends Cache {
         if (!$this->_redis) {
             $this->_connect();
         }
-        return $this->_redis->delete($this->options['prefix'] . $name);
+        return $this->_redis->delete($name);
     }
 
     public function clear() {
@@ -84,8 +83,8 @@ class CRedis extends Cache {
     }
 
     public function __destruct() {
-        $this->_redis->close();
         if ($this->_redis) {
+            $this->_redis_>close();
             $this->_redis = null;
         }
     }
