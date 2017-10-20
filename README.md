@@ -4,7 +4,7 @@
 
 ![build](https://img.shields.io/badge/build-passing-green.svg) ![PHP](https://img.shields.io/badge/PHP-5.4%2B-brightgreen.svg) ![version](https://img.shields.io/badge/version-2.2.2-red.svg) ![license](https://img.shields.io/badge/license-Apache%202-blue.svg) ![download](https://img.shields.io/badge/download-120KB-yellow.svg) ![author](https://img.shields.io/badge/author-ryan-orange.svg)
 
-[Simplified Chinese](https://github.com/zer0131/OneFox/zh.md)
+[Simplified Chinese](https://github.com/zer0131/OneFox/blob/master/zh.md)
 
 OneFox is a simple php framework(**require php5.4+**). It's very convenient to use. Simple reading manual can quickly develop their own web site. Advantages are as follows:
 * The frame core is not bulky, and the loading speed is fast.
@@ -35,11 +35,9 @@ server {
         fastcgi_index index.php;
         include fastcgi.conf;
     }
-    #图片缓存时间设置
     location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ {
         #expires 30d;
     }
-    #JS和CSS缓存时间设置
     location ~ .*\.(js|css)?$ {
         #expires 1h;
     }
@@ -153,7 +151,7 @@ Or
 php -r "readfile('https://getcomposer.org/installer');" | php
 ```
 
-[composer usage](http://docs.phpcomposer.com/)
+[Composer Usage](http://docs.phpcomposer.com/)
 
 ## Document
 
