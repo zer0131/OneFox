@@ -11,7 +11,7 @@ if (version_compare(PHP_VERSION, '5.4.0', '<')) {
     die('Require PHP > 5.4.0 !');
 }
 
-define('ONEFOX_VERSION', '2.2.1');
+define('ONEFOX_VERSION', '2.2.2');
 define('REQUEST_ID', uniqid());
 define('IS_CLI', PHP_SAPI == 'cli' ? true : false);
 !defined('APP_PATH') && die('APP_PATH is not defined');
