@@ -113,7 +113,6 @@ project  WEB部署目录（或者子目录）
 │  ├─Cache.php          缓存抽象文件
 │  ├─Config.php         配置类文件
 │  ├─Controller.php     抽象控制器文件
-│  ├─Curl.php           Curl类文件
 │  ├─DB.php             数据库范文类文件
 │  ├─Dispatcher.php     路由解析类文件
 │  ├─Log.php            日志类文件
