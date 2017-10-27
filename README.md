@@ -2,7 +2,7 @@
 
 ## Introduction
 
-![build](https://img.shields.io/badge/build-passing-green.svg) ![PHP](https://img.shields.io/badge/PHP-5.4%2B-brightgreen.svg) ![version](https://img.shields.io/badge/version-2.2.2-red.svg) ![license](https://img.shields.io/badge/license-Apache%202-blue.svg) ![download](https://img.shields.io/badge/download-120KB-yellow.svg) ![author](https://img.shields.io/badge/author-ryan-orange.svg)
+![build](https://img.shields.io/badge/build-passing-green.svg) ![PHP](https://img.shields.io/badge/PHP-5.4%2B-brightgreen.svg) ![version](https://img.shields.io/badge/version-2.2.3-red.svg) ![license](https://img.shields.io/badge/license-Apache%202-blue.svg) ![download](https://img.shields.io/badge/download-120KB-yellow.svg) ![author](https://img.shields.io/badge/author-ryan-orange.svg)
 
 [[Simplified Chinese]](https://github.com/zer0131/OneFox/blob/master/zh.md)
 
@@ -121,7 +121,6 @@ Framework Directory
 │  ├─Response.php       Response class
 │  ├─View.php           View class
 │  ├─functions.php      Common functions
-│  ├─Base.php           Basic class
 │  └─OneFox.php         Entry class
 ```
 

@@ -7,7 +7,7 @@
 
 namespace onefox;
 
-class View extends Base {
+class View {
 
     protected $tplVal = [];
     protected $ext = '';
