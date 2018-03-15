@@ -103,6 +103,9 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 
+# ctags file
+tags
+
 # costom project
 vendor/
 composer.lock
