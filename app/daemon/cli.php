@@ -4,13 +4,18 @@
  * @desc 测试脚本
  */
 
+use \Onefox\Lib\Encrypt\DesEncryption;
+
 set_time_limit(0);
 require __DIR__ . DIRECTORY_SEPARATOR . 'loader.php';
 
 class Test {
 
     public function run() {
-        dumper(\onefox\C::genRandomKey(16, false));
+        $enStr = DesEncryption::encrypt('zhangenrui', 'test');
+        dumper($enStr);
+        $deStr = DesEncryption::decrypt($enStr, 'test');
+        dumper($deStr);
     }
 }
 

@@ -9,16 +9,11 @@
     {
       "name": "ryan",
       "email": "zer0131@vip.qq.com",
-      "homepage": "http://www.appryan.com"
+      "homepage": "http://www.zhangenrui.com"
     }
   ],
   "require": {
-    "php": ">=5.4.0"
-  },
-  "repositories": {
-    "packagist": {
-      "type": "composer",
-      "url": "https://packagist.phpcomposer.com"
-    }
+    "php": ">=5.4.0",
+    "onefox/lib": "dev-master"
   }
 }

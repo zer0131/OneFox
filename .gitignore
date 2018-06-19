@@ -109,4 +109,4 @@ tags
 # costom project
 vendor/
 composer.lock
-
+composer.phar
