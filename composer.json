@@ -15,5 +15,11 @@
   "require": {
     "php": ">=5.4.0",
     "onefox/lib": "dev-master"
+  },
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.phpcomposer.com"
+    }
   }
 }
